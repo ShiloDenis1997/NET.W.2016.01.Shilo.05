@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,23 +13,26 @@ namespace Task1.Logic
         /// Computes GCD of two numbers
         /// </summary>
         /// <returns>null if both numbers are zeroes, GCD if not</returns>
-        public static long? Gcd(long a, long b)
+        public static Tuple<long?, TimeSpan> Gcd(long a, long b)
         {
+            Stopwatch sw = Stopwatch.StartNew();  
             if (a == 0 && b == 0)
                 return null;
-            return ComputeGcd(Math.Abs(a), Math.Abs(b));
+            return new Tuple<long?, TimeSpan>
+                (ComputeGcd(Math.Abs(a), Math.Abs(b)), sw.Elapsed);
         }
 
         /// <summary>
         /// Computes GCD of three numbers
         /// </summary>
         /// <returns> null if all numbers equal to zero, GCD if not</returns>
-        public static long? Gcd(long a, long b, long c)
+        public static Tuple<long?, TimeSpan> Gcd(long a, long b, long c)
         {
+            Stopwatch sw = Stopwatch.StartNew();
             long ret = ComputeGcd(ComputeGcd(Math.Abs(a), Math.Abs(b)), Math.Abs(c));
             if (ret == 0)
-                return null;
-            return ret;
+                return new Tuple<long?, TimeSpan>(null, sw.Elapsed);
+            return new Tuple<long?, TimeSpan>(ret, sw.Elapsed);
         }
 
         /// <summary>
@@ -40,8 +44,9 @@ namespace Task1.Logic
         /// <paramref name="numbers"/> is null</exception>
         /// <exception cref="ArgumentException">Throws when
         /// <paramref name="numbers"/> length is less than 2</exception>
-        public static long? Gcd(params long[] numbers)
+        public static Tuple<long?, TimeSpan> Gcd(params long[] numbers)
         {
+            Stopwatch sw = Stopwatch.StartNew();
             if (numbers == null)
                 throw new ArgumentNullException($"{nameof(numbers)} is Nullable");
             if (numbers.Length < 2)
@@ -50,8 +55,8 @@ namespace Task1.Logic
             for (int i = 2; i < numbers.Length; i++)
                 ret = ComputeGcd(ret, Math.Abs(numbers[i]));
             if (ret == 0)
-                return null;
-            return ret;
+                return new Tuple<long?, TimeSpan>(ret, sw.Elapsed);
+            return new Tuple<long?, TimeSpan>(ret, sw.Elapsed);
         }
 
 
