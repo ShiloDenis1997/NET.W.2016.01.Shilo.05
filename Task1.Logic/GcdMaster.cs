@@ -31,13 +31,37 @@ namespace Task1.Logic
             return ret;
         }
 
+        /// <summary>
+        /// Computes GCD of variable amount of numbers
+        /// </summary>
+        /// <param name="numbers"></param>
+        /// <returns>null if all arguments are equal to zero</returns>
+        /// <exception cref="ArgumentNullException">Throws when 
+        /// <paramref name="numbers"/> is null</exception>
+        /// <exception cref="ArgumentException">Throws when
+        /// <paramref name="numbers"/> length is less than 2</exception>
         public static long? Gcd(params long[] numbers)
         {
-            long ret = 0;
-
+            if (numbers == null)
+                throw new ArgumentNullException($"{nameof(numbers)} is Nullable");
+            if (numbers.Length < 2)
+                throw new ArgumentException($"Number of parameters is less than 2");
+            long ret = ComputeGcd(Math.Abs(numbers[0]), Math.Abs(numbers[1]));
+            for (int i = 2; i < numbers.Length; i++)
+                ret = ComputeGcd(ret, Math.Abs(numbers[2]));
+            if (ret == 0)
+                return null;
             return ret;
         }
 
+
+        /// <summary>
+        /// Computes GCD of two numbers. Uses Euclidean algorithm
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>0 if both <paramref name="a"/> and <paramref name="b"/>
+        /// are equal to zero, GCD if not</returns>
         private static long ComputeGcd(long a, long b)
         {
             if (a == 0)
