@@ -12,7 +12,7 @@ namespace Task1.Logic
         {
             if (x == 0 && y == 0)
                 return null;
-            return ComputeGcd(x, y);
+            return ComputeGcd(Math.Abs(x), Math.Abs(y));
         }
 
         private static long ComputeGcd(long x, long y)
