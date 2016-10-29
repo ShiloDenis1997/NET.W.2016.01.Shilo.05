@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -84,6 +85,59 @@ namespace Task1.Logic.Tests
         public long? Gcd_Arg1Arg2Arg3_GcdReturns(long a, long b, long c)
         {
             return GcdMaster.Gcd(a, b, c);
+        }
+
+        [TestCase(new long[] {0, 0, 0, 0}, ExpectedResult = null,
+            Description = "All arguments are equal to zero")]
+        [TestCase(new long[] {0, 0, 0, 25}, ExpectedResult = 25,
+            Description = "Only last number is non-zero")]
+        [TestCase(new long[] {25, 0, 0, 0}, ExpectedResult = 25,
+            Description = "Only first number is non-zero")]
+        [TestCase(new long[] {0, 25, 0, 0}, ExpectedResult = 25,
+            Description = "Only one of inner numbers is non-zero")]
+        [TestCase(new long[] {10, 30, 60, 70}, ExpectedResult = 10,
+            Description = "First number is gcd")]
+        [TestCase(new long[] {56, 28, 84, 56}, ExpectedResult = 28,
+            Description = "One of inner numbers is gcd")]
+        [TestCase(new long[] {56, 84, 84, 28}, ExpectedResult = 28,
+            Description = "Last number is gcd")]
+        [TestCase(new long[] {54, 48, 36, 48}, ExpectedResult = 6,
+            Description = "There are no elements equal to gcd")]
+        [TestCase(new long[] {36, 11, 22, 12, 25}, ExpectedResult = 1,
+            Description = "gcd = 1")]
+        [TestCase(new long[] {-48, -16, -32, -64}, ExpectedResult = 16,
+            Description = "Array with negative numbers. gcd = abs(second)")]
+        [TestCase(new long[] {-16, 32, -48, 64}, ExpectedResult = 16,
+            Description = "Array with positive and negative numbers. gcd = abs(first)")]
+        [TestCase(new long[] {-48, -36, -24, 60}, ExpectedResult = 12,
+            Description = "Array with positive and negative nubmers. No one element " +
+                          "is equal to gcd")]
+        [TestCase(new long[] {24, 18, 12, 20, 48, 1022}, ExpectedResult = 2,
+            Description = "Long array test")]
+        [TestCase(new long[] {-120, 20, 240, -180, -55}, ExpectedResult = 5,
+            Description = "Negative long array test")]
+        [TestCase(new long[] { -120, 20, 240}, ExpectedResult = 20,
+            Description = "Array with three arguments")]
+        [TestCase(new long[] { -120, 20}, ExpectedResult = 20,
+            Description = "Array with two arguments")]
+        [Test]
+        public long? Gcd_Args_GcdReturns(long[] numbers)
+        {
+            return GcdMaster.Gcd(numbers);
+        }
+
+        [TestCase(null, typeof(ArgumentNullException),
+            Description = "null array test")]
+        [TestCase(new long[] {}, typeof(ArgumentException),
+            Description = "empty array test")]
+        [TestCase(new long[] {2}, typeof(ArgumentException),
+            Description = "array with one element test")]
+        [Test]
+        public void Gcd_Args_ExceptionExpected
+            (long[] numbers, Type expectedExceptionType)
+        {
+            Assert.Throws(expectedExceptionType, 
+                () => { GcdMaster.Gcd(numbers); });
         }
     }
 }

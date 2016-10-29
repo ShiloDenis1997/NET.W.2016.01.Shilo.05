@@ -48,7 +48,7 @@ namespace Task1.Logic
                 throw new ArgumentException($"Number of parameters is less than 2");
             long ret = ComputeGcd(Math.Abs(numbers[0]), Math.Abs(numbers[1]));
             for (int i = 2; i < numbers.Length; i++)
-                ret = ComputeGcd(ret, Math.Abs(numbers[2]));
+                ret = ComputeGcd(ret, Math.Abs(numbers[i]));
             if (ret == 0)
                 return null;
             return ret;
