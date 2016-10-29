@@ -17,7 +17,7 @@ namespace Task1.Logic
         {
             Stopwatch sw = Stopwatch.StartNew();  
             if (a == 0 && b == 0)
-                return null;
+                return new Tuple<long?, TimeSpan>(null, sw.Elapsed);
             return new Tuple<long?, TimeSpan>
                 (ComputeGcd(Math.Abs(a), Math.Abs(b)), sw.Elapsed);
         }
@@ -55,7 +55,7 @@ namespace Task1.Logic
             for (int i = 2; i < numbers.Length; i++)
                 ret = ComputeGcd(ret, Math.Abs(numbers[i]));
             if (ret == 0)
-                return new Tuple<long?, TimeSpan>(ret, sw.Elapsed);
+                return new Tuple<long?, TimeSpan>(null, sw.Elapsed);
             return new Tuple<long?, TimeSpan>(ret, sw.Elapsed);
         }
 

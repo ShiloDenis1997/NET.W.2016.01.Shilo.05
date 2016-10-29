@@ -42,7 +42,12 @@ namespace Task1.Logic.Tests
         [Test]
         public long? Gcd_Arg1Arg2_GcdReturns(long a, long b)
         {
-            return GcdMaster.Gcd(a, b);
+            Stopwatch sw = Stopwatch.StartNew();
+            Tuple<long?, TimeSpan> actual = GcdMaster.Gcd(a, b);
+            sw.Stop();
+            Assert.LessOrEqual
+                (actual.Item2, sw.Elapsed, "Time was measured bad");
+            return actual.Item1;
         }
 
         [TestCase(0, 0, 0, ExpectedResult = null,
@@ -84,7 +89,12 @@ namespace Task1.Logic.Tests
         [Test]
         public long? Gcd_Arg1Arg2Arg3_GcdReturns(long a, long b, long c)
         {
-            return GcdMaster.Gcd(a, b, c);
+            Stopwatch sw = Stopwatch.StartNew();
+            Tuple<long?, TimeSpan> actual = GcdMaster.Gcd(a, b, c);
+            sw.Stop();
+            Assert.LessOrEqual
+                (actual.Item2, sw.Elapsed, "Time was measured bad");
+            return actual.Item1;
         }
 
         [TestCase(new long[] {0, 0, 0, 0}, ExpectedResult = null,
@@ -123,7 +133,12 @@ namespace Task1.Logic.Tests
         [Test]
         public long? Gcd_Args_GcdReturns(long[] numbers)
         {
-            return GcdMaster.Gcd(numbers);
+            Stopwatch sw = Stopwatch.StartNew();
+            Tuple<long?, TimeSpan> actual = GcdMaster.Gcd(numbers);
+            sw.Stop();
+            Assert.LessOrEqual
+                (actual.Item2, sw.Elapsed, "Time was measured bad");
+            return actual.Item1;
         }
 
         [TestCase(null, typeof(ArgumentNullException),
