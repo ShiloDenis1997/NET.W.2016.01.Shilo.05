@@ -31,6 +31,13 @@ namespace Task1.Logic
             return ret;
         }
 
+        public static long? Gcd(params long[] numbers)
+        {
+            long ret = 0;
+
+            return ret;
+        }
+
         private static long ComputeGcd(long a, long b)
         {
             if (a == 0)
