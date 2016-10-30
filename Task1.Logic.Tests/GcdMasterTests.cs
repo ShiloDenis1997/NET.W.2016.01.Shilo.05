@@ -7,6 +7,7 @@ namespace Task1.Logic.Tests
     [TestFixture]
     public class GcdMasterTests
     {
+        #region TestCases
         [TestCase(0, 0, ExpectedResult = null,
             Description = "Two zeroes haven't gcd")]
         [TestCase(10, 30, ExpectedResult = 10,
@@ -35,6 +36,7 @@ namespace Task1.Logic.Tests
             Description = "First < 0, second > 0")]
         [TestCase(36, -48, ExpectedResult = 12,
             Description = "First > 0, second < 0")]
+#endregion
         [Test]
         public long? Gcd_Arg1Arg2_GcdReturns(long a, long b)
         {
@@ -46,6 +48,7 @@ namespace Task1.Logic.Tests
             return actual.Item1;
         }
 
+        #region TestCases
         [TestCase(0, 0, 0, ExpectedResult = null,
             Description = "Three zeroes haven't gcd")]
         [TestCase(0, 0, 25, ExpectedResult = 25,
@@ -82,6 +85,7 @@ namespace Task1.Logic.Tests
             Description = "First > 0, second < 0, third > 0")]
         [TestCase(36, 48, -24, ExpectedResult = 12,
             Description = "First > 0, second < 0, third < 0")]
+#endregion
         [Test]
         public long? Gcd_Arg1Arg2Arg3_GcdReturns(long a, long b, long c)
         {
@@ -93,6 +97,7 @@ namespace Task1.Logic.Tests
             return actual.Item1;
         }
 
+        #region TestCases
         [TestCase(new long[] {0, 0, 0, 0}, ExpectedResult = null,
             Description = "All arguments are equal to zero")]
         [TestCase(new long[] {0, 0, 0, 25}, ExpectedResult = 25,
@@ -126,6 +131,7 @@ namespace Task1.Logic.Tests
             Description = "Array with three arguments")]
         [TestCase(new long[] { -120, 20 }, ExpectedResult = 20,
             Description = "Array with two arguments")]
+#endregion
         [Test]
         public long? Gcd_Args_GcdReturns(long[] numbers)
         {
@@ -137,12 +143,14 @@ namespace Task1.Logic.Tests
             return actual.Item1;
         }
 
+        #region TestCases
         [TestCase(null, typeof(ArgumentNullException),
             Description = "null array test")]
         [TestCase(new long[] { }, typeof(ArgumentException),
             Description = "empty array test")]
         [TestCase(new long[] { 2 }, typeof(ArgumentException),
-            Description = "array with one element test")]
+            Description = "array with one element test")] 
+        #endregion
         [Test]
         public void Gcd_Args_ExceptionExpected
             (long[] numbers, Type expectedExceptionType)
@@ -151,6 +159,7 @@ namespace Task1.Logic.Tests
                 () => { GcdMaster.GcdEuclidean(numbers); });
         }
 
+        #region TestCases
         [TestCase(0, 0, ExpectedResult = null,
             Description = "Two zeroes haven't gcd")]
         [TestCase(10, 30, ExpectedResult = 10,
@@ -178,7 +187,8 @@ namespace Task1.Logic.Tests
         [TestCase(-48, 36, ExpectedResult = 12,
             Description = "First < 0, second > 0")]
         [TestCase(36, -48, ExpectedResult = 12,
-            Description = "First > 0, second < 0")]
+            Description = "First > 0, second < 0")] 
+        #endregion
         [Test]
         public long? GcdStein_Arg1Arg2_ResultExpected(long a, long b)
         {

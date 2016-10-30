@@ -15,11 +15,7 @@ namespace Task1.Logic
         /// <returns>null if both numbers are zeroes, GCD if not</returns>
         public static Tuple<long?, TimeSpan> GcdEuclidean(long a, long b)
         {
-            Stopwatch sw = Stopwatch.StartNew();  
-            if (a == 0 && b == 0)
-                return new Tuple<long?, TimeSpan>(null, sw.Elapsed);
-            return new Tuple<long?, TimeSpan>
-                (ComputeGcdEuclidian(Math.Abs(a), Math.Abs(b)), sw.Elapsed);
+            return GcdPattern(ComputeGcdEuclidian, a, b);
         }
 
         /// <summary>
@@ -28,11 +24,7 @@ namespace Task1.Logic
         /// <returns> null if all numbers equal to zero, GCD if not</returns>
         public static Tuple<long?, TimeSpan> GcdEuclidean(long a, long b, long c)
         {
-            Stopwatch sw = Stopwatch.StartNew();
-            long ret = ComputeGcdEuclidian(ComputeGcdEuclidian(Math.Abs(a), Math.Abs(b)), Math.Abs(c));
-            if (ret == 0)
-                return new Tuple<long?, TimeSpan>(null, sw.Elapsed);
-            return new Tuple<long?, TimeSpan>(ret, sw.Elapsed);
+            return GcdPattern(ComputeGcdEuclidian, a, b, c);
         }
 
         /// <summary>
@@ -46,26 +38,59 @@ namespace Task1.Logic
         /// <paramref name="numbers"/> length is less than 2</exception>
         public static Tuple<long?, TimeSpan> GcdEuclidean(params long[] numbers)
         {
-            Stopwatch sw = Stopwatch.StartNew();
-            if (numbers == null)
-                throw new ArgumentNullException($"{nameof(numbers)} is Nullable");
-            if (numbers.Length < 2)
-                throw new ArgumentException($"Number of parameters is less than 2");
-            long ret = ComputeGcdEuclidian(Math.Abs(numbers[0]), Math.Abs(numbers[1]));
-            for (int i = 2; i < numbers.Length; i++)
-                ret = ComputeGcdEuclidian(ret, Math.Abs(numbers[i]));
-            if (ret == 0)
-                return new Tuple<long?, TimeSpan>(null, sw.Elapsed);
-            return new Tuple<long?, TimeSpan>(ret, sw.Elapsed);
+            return GcdPattern(ComputeGcdEuclidian, numbers);
         }
 
         public static Tuple<long?, TimeSpan> GcdStein(long a, long b)
+        {
+            return GcdPattern(ComputeGcdStein, a, b);
+        }
+
+        public static Tuple<long?, TimeSpan> GcdStein(long a, long b, long c)
+        {
+            return GcdPattern(ComputeGcdStein, a, b, c);
+        }
+
+        public static Tuple<long?, TimeSpan> GcdStein(params long[] numbers)
+        {
+            return GcdPattern(ComputeGcdStein, numbers);
+        }
+
+        private static Tuple<long?, TimeSpan> GcdPattern
+            (Func<long, long, long> gcdFunc, long a,
+            long b)
         {
             Stopwatch sw = Stopwatch.StartNew();
             if (a == 0 && b == 0)
                 return new Tuple<long?, TimeSpan>(null, sw.Elapsed);
             return new Tuple<long?, TimeSpan>
-                (ComputeGcdStein(Math.Abs(a), Math.Abs(b)), sw.Elapsed);
+                (gcdFunc(Math.Abs(a), Math.Abs(b)), sw.Elapsed);
+        }
+
+        private static Tuple<long?, TimeSpan> GcdPattern
+            (Func<long, long, long> gcdFunc, long a, long b, long c)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            long ret = gcdFunc(gcdFunc(Math.Abs(a), Math.Abs(b)), Math.Abs(c));
+            if (ret == 0)
+                return new Tuple<long?, TimeSpan>(null, sw.Elapsed);
+            return new Tuple<long?, TimeSpan>(ret, sw.Elapsed);
+        }
+
+        private static Tuple<long?, TimeSpan> GcdPattern
+            (Func<long, long, long> gcdFunc, params long[] numbers)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            if (numbers == null)
+                throw new ArgumentNullException($"{nameof(numbers)} is Nullable");
+            if (numbers.Length < 2)
+                throw new ArgumentException($"Number of parameters is less than 2");
+            long ret = gcdFunc(Math.Abs(numbers[0]), Math.Abs(numbers[1]));
+            for (int i = 2; i < numbers.Length; i++)
+                ret = gcdFunc(ret, Math.Abs(numbers[i]));
+            if (ret == 0)
+                return new Tuple<long?, TimeSpan>(null, sw.Elapsed);
+            return new Tuple<long?, TimeSpan>(ret, sw.Elapsed);
         }
 
         /// <summary>
