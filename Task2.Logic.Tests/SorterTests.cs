@@ -35,7 +35,7 @@ namespace Task2.Logic.Tests
         public void Sort_JaggedArray_SortedJuggedArrayExpected(long[][] input,
             long[][] expectedMatrix)
         {
-            long[][] actual = input.Sort();
+            long[][] actual = input.SortByRowSum();
             Assert.AreEqual(expectedMatrix.Length, actual.Length,
                 "Expected and actual matrixes have a different number of rows");
             for (int i = 0; i < actual.Length; i++)
