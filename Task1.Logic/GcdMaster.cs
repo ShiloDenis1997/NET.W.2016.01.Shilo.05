@@ -10,28 +10,35 @@ namespace Task1.Logic
     public static class GcdMaster
     {
         /// <summary>
-        /// Computes GCD of two numbers
+        /// Computes GCD of two numbers. Uses Euclidean algorithm
         /// </summary>
-        /// <returns>null if both numbers are zeroes, GCD if not</returns>
+        /// <returns>Tuple(Item1, Item2) where Item1 == null if both a and b
+        /// are equal to zero or gcd if not. 
+        /// Item2 is an elapsed time during which method works
+        /// </returns>
         public static Tuple<long?, TimeSpan> GcdEuclidean(long a, long b)
         {
             return GcdPattern(ComputeGcdEuclidian, a, b);
         }
 
         /// <summary>
-        /// Computes GCD of three numbers
+        /// Computes GCD of three numbers. Uses Euclidean algorithm
         /// </summary>
-        /// <returns> null if all numbers equal to zero, GCD if not</returns>
+        /// <returns>Tuple(Item1, Item2) where Item1 == null if all arguments
+        /// are equal to zero or gcd if not. 
+        /// Item2 is an elapsed time during which method works</returns>
         public static Tuple<long?, TimeSpan> GcdEuclidean(long a, long b, long c)
         {
             return GcdPattern(ComputeGcdEuclidian, a, b, c);
         }
 
         /// <summary>
-        /// Computes GCD of variable amount of numbers
+        /// Computes GCD of variable amount of numbers. Uses Euclidean algorithm
         /// </summary>
         /// <param name="numbers"></param>
-        /// <returns>null if all arguments are equal to zero</returns>
+        /// <returns>Tuple(Item1, Item2) where Item1 == null if all arguments
+        /// are equal to zero or gcd if not. 
+        /// Item2 is an elapsed time during which method works</returns>
         /// <exception cref="ArgumentNullException">Throws when 
         /// <paramref name="numbers"/> is null</exception>
         /// <exception cref="ArgumentException">Throws when
@@ -41,21 +48,54 @@ namespace Task1.Logic
             return GcdPattern(ComputeGcdEuclidian, numbers);
         }
 
+        /// <summary>
+        /// Computes GCD of two numbers. Uses Stein's algorithm
+        /// </summary>
+        /// <returns>Tuple(Item1, Item2) where Item1 == null if all 
+        /// arguments are equal to zero or gcd if not.
+        /// Item2 is an elapsed time during which method works</returns>
         public static Tuple<long?, TimeSpan> GcdStein(long a, long b)
         {
             return GcdPattern(ComputeGcdStein, a, b);
         }
 
+        /// <summary>
+        /// Computes GCD of three numbers. Uses Stein's algorithm
+        /// </summary>
+        /// <returns>Tuple(Item1, Item2) where Item1 == null if all 
+        /// arguments are equal to zero or gcd if not.
+        /// Item2 is an elapsed time during which method works </returns>
         public static Tuple<long?, TimeSpan> GcdStein(long a, long b, long c)
         {
             return GcdPattern(ComputeGcdStein, a, b, c);
         }
 
+        /// <summary>
+        /// Computes GCD of variable amount of numbers. Uses Stein's algorithm
+        /// </summary>
+        /// <param name="numbers"></param>
+        /// <returns>Tuple(Item1, Item2) where Item1 == null if all 
+        /// arguments are equal to zero or gcd if not.
+        /// Item2 is an elapsed time during which method works </returns>
+        /// <exception cref="ArgumentNullException">Throws when 
+        /// <paramref name="numbers"/> is null</exception>
+        /// <exception cref="ArgumentException">Throws when
+        /// <paramref name="numbers"/> length is less than 2</exception>
         public static Tuple<long?, TimeSpan> GcdStein(params long[] numbers)
         {
             return GcdPattern(ComputeGcdStein, numbers);
         }
 
+        /// <summary>
+        /// Implements a strategy of computing GCD of 2 arguments.
+        /// </summary>
+        /// <param name="gcdFunc">Function that computes GCD of 2 arguments
+        /// </param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>Tuple(Item1, Item2) where Item1 == null if all 
+        /// arguments are equal to zero or gcd if not.
+        /// Item2 is an elapsed time during which method works </returns>
         private static Tuple<long?, TimeSpan> GcdPattern
             (Func<long, long, long> gcdFunc, long a,
             long b)
@@ -67,6 +107,17 @@ namespace Task1.Logic
                 (gcdFunc(Math.Abs(a), Math.Abs(b)), sw.Elapsed);
         }
 
+        /// <summary>
+        /// Implements a strategy of computing GCD of 3 arguments.
+        /// </summary>
+        /// <param name="gcdFunc">Function that computes GCD of 2 arguments
+        /// </param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns>Tuple(Item1, Item2) where Item1 == null if all 
+        /// arguments are equal to zero or gcd if not.
+        /// Item2 is an elapsed time during which method works </returns>
         private static Tuple<long?, TimeSpan> GcdPattern
             (Func<long, long, long> gcdFunc, long a, long b, long c)
         {
@@ -77,6 +128,20 @@ namespace Task1.Logic
             return new Tuple<long?, TimeSpan>(ret, sw.Elapsed);
         }
 
+        /// <summary>
+        /// Implements a strategy of computing GCD of 
+        /// variable number of arguments.
+        /// </summary>
+        /// <param name="gcdFunc">Function that computes GCD of 2 arguments
+        /// </param>
+        /// <param name="numbers"></param>
+        /// <returns>Tuple(Item1, Item2) where Item1 == null if all 
+        /// arguments are equal to zero or gcd if not.
+        /// Item2 is an elapsed time during which method works </returns>
+        /// <exception cref="ArgumentNullException">Throws when 
+        /// <paramref name="numbers"/> is null</exception>
+        /// <exception cref="ArgumentException">Throws when
+        /// <paramref name="numbers"/> length is less than 2</exception>
         private static Tuple<long?, TimeSpan> GcdPattern
             (Func<long, long, long> gcdFunc, params long[] numbers)
         {
