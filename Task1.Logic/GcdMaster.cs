@@ -16,7 +16,7 @@ namespace Task1.Logic
         /// are equal to zero or gcd if not. 
         /// Item2 is an elapsed time during which method works
         /// </returns>
-        public static Tuple<long?, TimeSpan> GcdEuclidean(long a, long b)
+        public static Tuple<long?, TimeSpan> GcdEuclidean(this long a, long b)
         {
             return GcdPattern(ComputeGcdEuclidian, a, b);
         }
@@ -27,7 +27,7 @@ namespace Task1.Logic
         /// <returns>Tuple(Item1, Item2) where Item1 == null if all arguments
         /// are equal to zero or gcd if not. 
         /// Item2 is an elapsed time during which method works</returns>
-        public static Tuple<long?, TimeSpan> GcdEuclidean(long a, long b, long c)
+        public static Tuple<long?, TimeSpan> GcdEuclidean(this long a, long b, long c)
         {
             return GcdPattern(ComputeGcdEuclidian, a, b, c);
         }
@@ -54,7 +54,7 @@ namespace Task1.Logic
         /// <returns>Tuple(Item1, Item2) where Item1 == null if all 
         /// arguments are equal to zero or gcd if not.
         /// Item2 is an elapsed time during which method works</returns>
-        public static Tuple<long?, TimeSpan> GcdStein(long a, long b)
+        public static Tuple<long?, TimeSpan> GcdStein(this long a, long b)
         {
             return GcdPattern(ComputeGcdStein, a, b);
         }
@@ -65,7 +65,7 @@ namespace Task1.Logic
         /// <returns>Tuple(Item1, Item2) where Item1 == null if all 
         /// arguments are equal to zero or gcd if not.
         /// Item2 is an elapsed time during which method works </returns>
-        public static Tuple<long?, TimeSpan> GcdStein(long a, long b, long c)
+        public static Tuple<long?, TimeSpan> GcdStein(this long a, long b, long c)
         {
             return GcdPattern(ComputeGcdStein, a, b, c);
         }
