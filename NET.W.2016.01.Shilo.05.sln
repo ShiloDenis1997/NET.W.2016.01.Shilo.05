@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2.Logic", "Task2.Logic\Task2.Logic.csproj", "{AA9DB3B7-2B38-4D80-9455-4ED06B9A54D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2.Logic.Tests", "Task2.Logic.Tests\Task2.Logic.Tests.csproj", "{3D88B545-56D7-4035-BCFC-CDBC833C7F12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{AA9DB3B7-2B38-4D80-9455-4ED06B9A54D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA9DB3B7-2B38-4D80-9455-4ED06B9A54D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA9DB3B7-2B38-4D80-9455-4ED06B9A54D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D88B545-56D7-4035-BCFC-CDBC833C7F12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D88B545-56D7-4035-BCFC-CDBC833C7F12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D88B545-56D7-4035-BCFC-CDBC833C7F12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D88B545-56D7-4035-BCFC-CDBC833C7F12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

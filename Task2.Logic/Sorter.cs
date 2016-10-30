@@ -11,27 +11,61 @@ namespace Task2.Logic
     {
         public static long[][] Sort(this long[][] matrix)
         {
+            long[] rowResults = new long[matrix.Length];
+            for (int i = 0; i < rowResults.Length; i++)
+            {
+                rowResults[i] = Sum(0, matrix[0][0]);
+                for (int j = 1; j < matrix[i].Length; j++)
+                    rowResults[i] = Sum(rowResults[i], matrix[i][j]);
+            }
+
             for (int i = 0; i < matrix.Length; i++)
                 for (int j = 1; j < matrix.Length - i; j++)
                 {
-                    long sumjm1 = 0;
-                    long sumj = 0;
-                    for (int j1 = 0; j1 < matrix[j - 1].Length; j1++)
+                    if (rowResults[j - 1] > rowResults[j])
                     {
-                        sumjm1 += matrix[j][j1];
-                        sumj += matrix[j][j1];
+                        Swap(ref matrix[j - 1], ref matrix[j]);
+                        Swap(ref rowResults[j - 1], ref rowResults[j]);
                     }
-                    if (sumjm1 > sumj)
-                        SwapRows(ref matrix[j - 1], ref matrix[j]);
                 }
             return matrix;
         }
 
-        private static void SwapRows(ref long[] xRow, ref long[] yRow)
+        private static long Max(long previosResult, long value)
         {
-            long[] tempRow = xRow;
-            xRow = yRow;
-            yRow = tempRow;
+            return Math.Max(previosResult, value);
+        }
+
+        private static long Min(long previosResult, long value)
+        {
+            return Math.Min(previosResult, value);
+        }
+
+        private static long Sum(long previosResult, long value)
+        {
+            return checked(previosResult + value);
+        }
+
+        private class MaxComparer : IComparer <long>
+        {
+            public int Compare(long x, long y)
+            {
+                return x.CompareTo(y);
+            }
+        }
+
+        //private static void SwapRows(ref long[] xRow, ref long[] yRow)
+        //{
+        //    long[] tempRow = xRow;
+        //    xRow = yRow;
+        //    yRow = tempRow;
+        //}
+
+        private static void Swap<T>(ref T a, ref T b)
+        {
+            T t = a;
+            a = b;
+            b = t;
         }
 
     }
