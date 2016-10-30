@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace Task1.Logic.Tests
@@ -43,7 +39,7 @@ namespace Task1.Logic.Tests
         public long? Gcd_Arg1Arg2_GcdReturns(long a, long b)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Tuple<long?, TimeSpan> actual = GcdMaster.Gcd(a, b);
+            Tuple<long?, TimeSpan> actual = GcdMaster.GcdEuclidean(a, b);
             sw.Stop();
             Assert.LessOrEqual
                 (actual.Item2, sw.Elapsed, "Time was measured bad");
@@ -90,7 +86,7 @@ namespace Task1.Logic.Tests
         public long? Gcd_Arg1Arg2Arg3_GcdReturns(long a, long b, long c)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Tuple<long?, TimeSpan> actual = GcdMaster.Gcd(a, b, c);
+            Tuple<long?, TimeSpan> actual = GcdMaster.GcdEuclidean(a, b, c);
             sw.Stop();
             Assert.LessOrEqual
                 (actual.Item2, sw.Elapsed, "Time was measured bad");
@@ -128,13 +124,13 @@ namespace Task1.Logic.Tests
             Description = "Negative long array test")]
         [TestCase(new long[] { -120, 20, 240}, ExpectedResult = 20,
             Description = "Array with three arguments")]
-        [TestCase(new long[] { -120, 20}, ExpectedResult = 20,
+        [TestCase(new long[] { -120, 20 }, ExpectedResult = 20,
             Description = "Array with two arguments")]
         [Test]
         public long? Gcd_Args_GcdReturns(long[] numbers)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Tuple<long?, TimeSpan> actual = GcdMaster.Gcd(numbers);
+            Tuple<long?, TimeSpan> actual = GcdMaster.GcdEuclidean(numbers);
             sw.Stop();
             Assert.LessOrEqual
                 (actual.Item2, sw.Elapsed, "Time was measured bad");
@@ -143,16 +139,55 @@ namespace Task1.Logic.Tests
 
         [TestCase(null, typeof(ArgumentNullException),
             Description = "null array test")]
-        [TestCase(new long[] {}, typeof(ArgumentException),
+        [TestCase(new long[] { }, typeof(ArgumentException),
             Description = "empty array test")]
-        [TestCase(new long[] {2}, typeof(ArgumentException),
+        [TestCase(new long[] { 2 }, typeof(ArgumentException),
             Description = "array with one element test")]
         [Test]
         public void Gcd_Args_ExceptionExpected
             (long[] numbers, Type expectedExceptionType)
         {
             Assert.Throws(expectedExceptionType, 
-                () => { GcdMaster.Gcd(numbers); });
+                () => { GcdMaster.GcdEuclidean(numbers); });
+        }
+
+        [TestCase(0, 0, ExpectedResult = null,
+            Description = "Two zeroes haven't gcd")]
+        [TestCase(10, 30, ExpectedResult = 10,
+            Description = "First number is gcd")]
+        [TestCase(28, 7, ExpectedResult = 7,
+            Description = "Second number is gcd")]
+        [TestCase(0, 25, ExpectedResult = 25,
+            Description = "First number is zero")]
+        [TestCase(25, 0, ExpectedResult = 25,
+            Description = "Second number is zero")]
+        [TestCase(54, 48, ExpectedResult = 6,
+            Description = "First nubmer > second.")]
+        [TestCase(48, 54, ExpectedResult = 6,
+            Description = "Second number > first")]
+        [TestCase(36, 11, ExpectedResult = 1,
+            Description = "First > second, gcd = 1")]
+        [TestCase(11, 36, ExpectedResult = 1,
+            Description = "Second > first, gcd = 1")]
+        [TestCase(-48, -16, ExpectedResult = 16,
+            Description = "Two negative numbers, gcd = abs(second)")]
+        [TestCase(-16, -48, ExpectedResult = 16,
+            Description = "Two negative nubmers, gcd = abs(first)")]
+        [TestCase(-48, -36, ExpectedResult = 12,
+            Description = "Two negative numbers. abs(first) > abs(second)")]
+        [TestCase(-48, 36, ExpectedResult = 12,
+            Description = "First < 0, second > 0")]
+        [TestCase(36, -48, ExpectedResult = 12,
+            Description = "First > 0, second < 0")]
+        [Test]
+        public long? GcdStein_Arg1Arg2_ResultExpected(long a, long b)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            Tuple<long?, TimeSpan> actual = GcdMaster.GcdStein(a, b);
+            sw.Stop();
+            Assert.LessOrEqual
+                (actual.Item2, sw.Elapsed, "Time was measured bad");
+            return actual.Item1;
         }
     }
 }
