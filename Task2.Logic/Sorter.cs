@@ -20,7 +20,9 @@ namespace Task2.Logic
         /// <returns>Reference to the sorted matrix which is the same to 
         /// <paramref name="matrix"/></returns>
         /// <exception cref="OverflowException">Throws when sum of elements in 
-        /// one of the rows is greater than <see cref="long.MaxValue"/></exception>
+        /// one of the rows overflowing <see cref="long"/>/></exception>
+        /// <exception cref="ArgumentNullException">Throws if <paramref name="matrix"/>
+        ///  or one of the rows of <paramref name="matrix"/>is null</exception>
         public static long[][] SortByRowSum
             (this long[][] matrix, IComparer<long> rowSumsComparer = null)
         {
@@ -39,6 +41,8 @@ namespace Task2.Logic
         /// not specified, than <see cref="AscendingComparer"/> will be used</param>
         /// <returns>Reference to the sorted matrix which is the same to 
         /// <paramref name="matrix"/></returns>
+        /// <exception cref="ArgumentNullException">Throws if <paramref name="matrix"/>
+        ///  or one of the rows of <paramref name="matrix"/>is null</exception>
         public static long[][] SortByRowMax
             (this long[][] matrix, IComparer<long> rowMaxComparer = null)
         {
@@ -56,6 +60,8 @@ namespace Task2.Logic
         /// not specified, than <see cref="AscendingComparer"/> will be used</param>
         /// <returns>Reference to the sorted matrix which is the same to 
         /// <paramref name="matrix"/></returns>
+        /// <exception cref="ArgumentNullException">Throws if <paramref name="matrix"/>
+        ///  or one of the rows of <paramref name="matrix"/>is null</exception>
         public static long[][] SortByRowMin
             (this long[][] matrix, IComparer<long> rowMinComparer = null)
         {
@@ -86,7 +92,8 @@ namespace Task2.Logic
         /// <returns>Reference to the sorted matrix which is the same to 
         /// <paramref name="matrix"/></returns>
         /// <exception cref="ArgumentNullException">Throws if <paramref name="matrix"/>
-        /// or <paramref name="aggregateFunc"/> or one of the rows is null</exception>
+        /// or <paramref name="aggregateFunc"/> or one of the rows of 
+        /// <paramref name="matrix"/>is null</exception>
         private static void BubbleSort(long[][] matrix, 
             Func<long, long, long> aggregateFunc,
             IComparer<long> resultsComparer = null)
