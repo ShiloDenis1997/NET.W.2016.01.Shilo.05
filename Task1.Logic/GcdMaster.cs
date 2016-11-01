@@ -144,7 +144,7 @@ namespace Task1.Logic
                 throw new ArgumentNullException($"{nameof(numbers)} is Nullable");
             if (numbers.Length < 2)
                 throw new ArgumentException($"Number of parameters is less than 2");
-            long ret = numbers[0];
+            long ret = Math.Abs(numbers[0]);
             for (int i = 1; i < numbers.Length; i++)
                 ret = gcdFunc(ret, Math.Abs(numbers[i]));
             return ret;

@@ -8,7 +8,7 @@ namespace Task1.Logic.Tests
     public class GcdMasterTests
     {
         #region TestCases
-        [TestCase(0, 0, ExpectedResult = null,
+        [TestCase(0, 0, ExpectedResult = 0,
             Description = "Two zeroes haven't gcd")]
         [TestCase(10, 30, ExpectedResult = 10,
             Description = "First number is gcd")]
@@ -38,10 +38,10 @@ namespace Task1.Logic.Tests
             Description = "First > 0, second < 0")]
 #endregion
         [Test]
-        public long? GcdEuclidean_Arg1Arg2_GcdReturns(long a, long b)
+        public long GcdEuclidean_Arg1Arg2_GcdReturns(long a, long b)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Tuple<long?, TimeSpan> actual = GcdMaster.GcdEuclideanTime(a, b);
+            Tuple<long, TimeSpan> actual = GcdMaster.GcdEuclideanTime(a, b);
             sw.Stop();
             Assert.LessOrEqual
                 (actual.Item2, sw.Elapsed, "Time was measured bad");
@@ -49,7 +49,7 @@ namespace Task1.Logic.Tests
         }
 
         #region TestCases
-        [TestCase(0, 0, 0, ExpectedResult = null,
+        [TestCase(0, 0, 0, ExpectedResult = 0,
             Description = "Three zeroes haven't gcd")]
         [TestCase(0, 0, 25, ExpectedResult = 25,
             Description = "First and second number are zeroes")]
@@ -87,10 +87,10 @@ namespace Task1.Logic.Tests
             Description = "First > 0, second < 0, third < 0")]
 #endregion
         [Test]
-        public long? GcdEuclidean_Arg1Arg2Arg3_GcdReturns(long a, long b, long c)
+        public long GcdEuclidean_Arg1Arg2Arg3_GcdReturns(long a, long b, long c)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Tuple<long?, TimeSpan> actual = GcdMaster.GcdEuclideanTime(a, b, c);
+            Tuple<long, TimeSpan> actual = GcdMaster.GcdEuclideanTime(a, b, c);
             sw.Stop();
             Assert.LessOrEqual
                 (actual.Item2, sw.Elapsed, "Time was measured bad");
@@ -98,7 +98,7 @@ namespace Task1.Logic.Tests
         }
 
         #region TestCases
-        [TestCase(new long[] {0, 0, 0, 0}, ExpectedResult = null,
+        [TestCase(new long[] {0, 0, 0, 0}, ExpectedResult = 0,
             Description = "All arguments are equal to zero")]
         [TestCase(new long[] {0, 0, 0, 25}, ExpectedResult = 25,
             Description = "Only last number is non-zero")]
@@ -133,10 +133,10 @@ namespace Task1.Logic.Tests
             Description = "Array with two arguments")]
 #endregion
         [Test]
-        public long? GcdEuclidean_Args_GcdReturns(long[] numbers)
+        public long GcdEuclidean_Args_GcdReturns(long[] numbers)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Tuple<long?, TimeSpan> actual = GcdMaster.GcdEuclideanTime(numbers);
+            Tuple<long, TimeSpan> actual = GcdMaster.GcdEuclideanTime(numbers);
             sw.Stop();
             Assert.LessOrEqual
                 (actual.Item2, sw.Elapsed, "Time was measured bad");
@@ -160,7 +160,7 @@ namespace Task1.Logic.Tests
         }
 
         #region TestCases
-        [TestCase(0, 0, ExpectedResult = null,
+        [TestCase(0, 0, ExpectedResult = 0,
             Description = "Two zeroes haven't gcd")]
         [TestCase(10, 30, ExpectedResult = 10,
             Description = "First number is gcd")]
@@ -190,10 +190,10 @@ namespace Task1.Logic.Tests
             Description = "First > 0, second < 0")] 
         #endregion
         [Test]
-        public long? GcdStein_Arg1Arg2_ResultExpected(long a, long b)
+        public long GcdStein_Arg1Arg2_ResultExpected(long a, long b)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Tuple<long?, TimeSpan> actual = GcdMaster.GcdSteinTime(a, b);
+            Tuple<long, TimeSpan> actual = GcdMaster.GcdSteinTime(a, b);
             sw.Stop();
             Assert.LessOrEqual
                 (actual.Item2, sw.Elapsed, "Time was measured bad");
@@ -201,7 +201,7 @@ namespace Task1.Logic.Tests
         }
 
         #region TestCases
-        [TestCase(0, 0, 0, ExpectedResult = null,
+        [TestCase(0, 0, 0, ExpectedResult = 0,
             Description = "Three zeroes haven't gcd")]
         [TestCase(0, 0, 25, ExpectedResult = 25,
             Description = "First and second number are zeroes")]
@@ -239,10 +239,10 @@ namespace Task1.Logic.Tests
             Description = "First > 0, second < 0, third < 0")]
         #endregion
         [Test]
-        public long? GcdStein_Arg1Arg2Arg3_GcdReturns(long a, long b, long c)
+        public long GcdStein_Arg1Arg2Arg3_GcdReturns(long a, long b, long c)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Tuple<long?, TimeSpan> actual = GcdMaster.GcdSteinTime(a, b, c);
+            Tuple<long, TimeSpan> actual = GcdMaster.GcdSteinTime(a, b, c);
             sw.Stop();
             Assert.LessOrEqual
                 (actual.Item2, sw.Elapsed, "Time was measured bad");
@@ -250,7 +250,7 @@ namespace Task1.Logic.Tests
         }
 
         #region TestCases
-        [TestCase(new long[] { 0, 0, 0, 0 }, ExpectedResult = null,
+        [TestCase(new long[] { 0, 0, 0, 0 }, ExpectedResult = 0,
             Description = "All arguments are equal to zero")]
         [TestCase(new long[] { 0, 0, 0, 25 }, ExpectedResult = 25,
             Description = "Only last number is non-zero")]
@@ -285,10 +285,10 @@ namespace Task1.Logic.Tests
             Description = "Array with two arguments")]
         #endregion
         [Test]
-        public long? GcdStein_Args_GcdReturns(long[] numbers)
+        public long GcdStein_Args_GcdReturns(long[] numbers)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Tuple<long?, TimeSpan> actual = GcdMaster.GcdSteinTime(numbers);
+            Tuple<long, TimeSpan> actual = GcdMaster.GcdSteinTime(numbers);
             sw.Stop();
             Assert.LessOrEqual
                 (actual.Item2, sw.Elapsed, "Time was measured bad");
