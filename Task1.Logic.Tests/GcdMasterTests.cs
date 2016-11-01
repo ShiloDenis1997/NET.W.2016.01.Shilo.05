@@ -41,10 +41,10 @@ namespace Task1.Logic.Tests
         public long GcdEuclidean_Arg1Arg2_GcdReturns(long a, long b)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Tuple<long, TimeSpan> actual = GcdMaster.GcdEuclideanTime(a, b);
+            Tuple<long, long> actual = GcdMaster.GcdEuclideanTime(a, b);
             sw.Stop();
             Assert.LessOrEqual
-                (actual.Item2, sw.Elapsed, "Time was measured bad");
+                (actual.Item2, sw.Elapsed.Ticks, "Time was measured bad");
             return actual.Item1;
         }
 
@@ -90,10 +90,10 @@ namespace Task1.Logic.Tests
         public long GcdEuclidean_Arg1Arg2Arg3_GcdReturns(long a, long b, long c)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Tuple<long, TimeSpan> actual = GcdMaster.GcdEuclideanTime(a, b, c);
+            Tuple<long, long> actual = GcdMaster.GcdEuclideanTime(a, b, c);
             sw.Stop();
             Assert.LessOrEqual
-                (actual.Item2, sw.Elapsed, "Time was measured bad");
+                (actual.Item2, sw.Elapsed.Ticks, "Time was measured bad");
             return actual.Item1;
         }
 
@@ -136,10 +136,10 @@ namespace Task1.Logic.Tests
         public long GcdEuclidean_Args_GcdReturns(long[] numbers)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Tuple<long, TimeSpan> actual = GcdMaster.GcdEuclideanTime(numbers);
+            Tuple<long, long> actual = GcdMaster.GcdEuclideanTime(numbers);
             sw.Stop();
             Assert.LessOrEqual
-                (actual.Item2, sw.Elapsed, "Time was measured bad");
+                (actual.Item2, sw.Elapsed.Ticks, "Time was measured bad");
             return actual.Item1;
         }
 
@@ -193,10 +193,10 @@ namespace Task1.Logic.Tests
         public long GcdStein_Arg1Arg2_ResultExpected(long a, long b)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Tuple<long, TimeSpan> actual = GcdMaster.GcdSteinTime(a, b);
+            Tuple<long, long> actual = GcdMaster.GcdSteinTime(a, b);
             sw.Stop();
             Assert.LessOrEqual
-                (actual.Item2, sw.Elapsed, "Time was measured bad");
+                (actual.Item2, sw.Elapsed.Ticks, "Time was measured bad");
             return actual.Item1;
         }
 
@@ -242,10 +242,10 @@ namespace Task1.Logic.Tests
         public long GcdStein_Arg1Arg2Arg3_GcdReturns(long a, long b, long c)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Tuple<long, TimeSpan> actual = GcdMaster.GcdSteinTime(a, b, c);
+            Tuple<long, long> actual = GcdMaster.GcdSteinTime(a, b, c);
             sw.Stop();
             Assert.LessOrEqual
-                (actual.Item2, sw.Elapsed, "Time was measured bad");
+                (actual.Item2, sw.Elapsed.Ticks, "Time was measured bad");
             return actual.Item1;
         }
 
@@ -288,10 +288,10 @@ namespace Task1.Logic.Tests
         public long GcdStein_Args_GcdReturns(long[] numbers)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Tuple<long, TimeSpan> actual = GcdMaster.GcdSteinTime(numbers);
+            Tuple<long, long> actual = GcdMaster.GcdSteinTime(numbers);
             sw.Stop();
             Assert.LessOrEqual
-                (actual.Item2, sw.Elapsed, "Time was measured bad");
+                (actual.Item2, sw.Elapsed.Ticks, "Time was measured bad");
             return actual.Item1;
         }
 
