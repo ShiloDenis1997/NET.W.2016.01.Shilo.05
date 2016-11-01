@@ -58,7 +58,9 @@ namespace Task1.Logic
             => GcdPattern(ComputeGcdStein, numbers);
 
         /// <summary>
-        /// Computes GCD of two numbers. Uses Euclidean algorithm
+        /// Computes GCD of two numbers and time in <see cref="TimeSpan.Ticks"/>
+        /// for computing.
+        ///  Uses Euclidean algorithm
         /// </summary>
         /// <returns>Tuple(Item1, Item2) where Item1 == null if both a and b
         /// are equal to zero or gcd if not. 
@@ -68,16 +70,18 @@ namespace Task1.Logic
             => GcdPatternTime(ComputeGcdEuclidian, a, b);
 
         /// <summary>
-        /// Computes GCD of three numbers. Uses Euclidean algorithm
+        /// Computes GCD of two numbers and time in <see cref="TimeSpan.Ticks"/>
+        /// for computing. Uses Euclidean algorithm
         /// </summary>
         /// <returns>Tuple(Item1, Item2) where Item1 == null if all arguments
         /// are equal to zero or gcd if not. 
         /// Item2 is an elapsed time during which method works</returns>
         public static Tuple<long, long> GcdEuclideanTime(this long a, long b, long c)
             => GcdPatternTime(ComputeGcdEuclidian, a, b, c);
-        
+
         /// <summary>
-        /// Computes GCD of variable amount of numbers. Uses Euclidean algorithm
+        /// Computes GCD of two numbers and time in <see cref="TimeSpan.Ticks"/>
+        /// for computing. Uses Euclidean algorithm
         /// </summary>
         /// <param name="numbers"></param>
         /// <returns>Tuple(Item1, Item2) where Item1 == null if all arguments
@@ -89,18 +93,20 @@ namespace Task1.Logic
         /// <paramref name="numbers"/> length is less than 2</exception>
         public static Tuple<long, long> GcdEuclideanTime(params long[] numbers)
             => GcdPatternTime(ComputeGcdEuclidian, numbers);
-        
+
         /// <summary>
-        /// Computes GCD of two numbers. Uses Stein's algorithm
+        /// Computes GCD of two numbers and time in <see cref="TimeSpan.Ticks"/>
+        /// for computing. Uses Stein's algorithm
         /// </summary>
         /// <returns>Tuple(Item1, Item2) where Item1 == null if all 
         /// arguments are equal to zero or gcd if not.
         /// Item2 is an elapsed time during which method works</returns>
         public static Tuple<long, long> GcdSteinTime(this long a, long b)
             => GcdPatternTime(ComputeGcdStein, a, b);
-        
+
         /// <summary>
-        /// Computes GCD of three numbers. Uses Stein's algorithm
+        /// Computes GCD of two numbers and time in <see cref="TimeSpan.Ticks"/>
+        /// for computing. Uses Stein's algorithm
         /// </summary>
         /// <returns>Tuple(Item1, Item2) where Item1 == null if all 
         /// arguments are equal to zero or gcd if not.
@@ -110,7 +116,8 @@ namespace Task1.Logic
             => GcdPatternTime(ComputeGcdStein, a, b, c);
 
         /// <summary>
-        /// Computes GCD of variable amount of numbers. Uses Stein's algorithm
+        /// Computes GCD of two numbers and time in <see cref="TimeSpan.Ticks"/>
+        /// for computing. Uses Stein's algorithm
         /// </summary>
         /// <param name="numbers"></param>
         /// <returns>Tuple(Item1, Item2) where Item1 == null if all 
