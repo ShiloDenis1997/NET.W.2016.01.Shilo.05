@@ -16,9 +16,9 @@ namespace Task1.Logic
         /// are equal to zero or gcd if not. 
         /// Item2 is an elapsed time during which method works
         /// </returns>
-        public static Tuple<long?, TimeSpan> GcdEuclidean(this long a, long b)
+        public static Tuple<long, TimeSpan> GcdEuclideanTime(this long a, long b)
         {
-            return GcdPattern(ComputeGcdEuclidian, a, b);
+            return GcdPatternTime(ComputeGcdEuclidian, a, b);
         }
 
         /// <summary>
@@ -27,9 +27,9 @@ namespace Task1.Logic
         /// <returns>Tuple(Item1, Item2) where Item1 == null if all arguments
         /// are equal to zero or gcd if not. 
         /// Item2 is an elapsed time during which method works</returns>
-        public static Tuple<long?, TimeSpan> GcdEuclidean(this long a, long b, long c)
+        public static Tuple<long, TimeSpan> GcdEuclideanTime(this long a, long b, long c)
         {
-            return GcdPattern(ComputeGcdEuclidian, a, b, c);
+            return GcdPatternTime(ComputeGcdEuclidian, a, b, c);
         }
 
         /// <summary>
@@ -43,9 +43,9 @@ namespace Task1.Logic
         /// <paramref name="numbers"/> is null</exception>
         /// <exception cref="ArgumentException">Throws when
         /// <paramref name="numbers"/> length is less than 2</exception>
-        public static Tuple<long?, TimeSpan> GcdEuclidean(params long[] numbers)
+        public static Tuple<long, TimeSpan> GcdEuclideanTime(params long[] numbers)
         {
-            return GcdPattern(ComputeGcdEuclidian, numbers);
+            return GcdPatternTime(ComputeGcdEuclidian, numbers);
         }
 
         /// <summary>
@@ -54,9 +54,9 @@ namespace Task1.Logic
         /// <returns>Tuple(Item1, Item2) where Item1 == null if all 
         /// arguments are equal to zero or gcd if not.
         /// Item2 is an elapsed time during which method works</returns>
-        public static Tuple<long?, TimeSpan> GcdStein(this long a, long b)
+        public static Tuple<long, TimeSpan> GcdSteinTime(this long a, long b)
         {
-            return GcdPattern(ComputeGcdStein, a, b);
+            return GcdPatternTime(ComputeGcdStein, a, b);
         }
 
         /// <summary>
@@ -65,9 +65,10 @@ namespace Task1.Logic
         /// <returns>Tuple(Item1, Item2) where Item1 == null if all 
         /// arguments are equal to zero or gcd if not.
         /// Item2 is an elapsed time during which method works </returns>
-        public static Tuple<long?, TimeSpan> GcdStein(this long a, long b, long c)
+        public static Tuple<long, TimeSpan> GcdSteinTime
+            (this long a, long b, long c)
         {
-            return GcdPattern(ComputeGcdStein, a, b, c);
+            return GcdPatternTime(ComputeGcdStein, a, b, c);
         }
 
         /// <summary>
@@ -81,9 +82,22 @@ namespace Task1.Logic
         /// <paramref name="numbers"/> is null</exception>
         /// <exception cref="ArgumentException">Throws when
         /// <paramref name="numbers"/> length is less than 2</exception>
-        public static Tuple<long?, TimeSpan> GcdStein(params long[] numbers)
+        public static Tuple<long, TimeSpan> GcdSteinTime(params long[] numbers)
         {
-            return GcdPattern(ComputeGcdStein, numbers);
+            return GcdPatternTime(ComputeGcdStein, numbers);
+        }
+
+        private static long GcdPattern
+        (Func<long, long, long> gcdFunc, long a,
+            long b)
+        {
+            return gcdFunc(Math.Abs(a), Math.Abs(b));
+        }
+
+        private static long GcdPattern(Func<long, long, long> gcdFunc, long a,
+            long b, long c)
+        {
+            return gcdFunc(gcdFunc(Math.Abs(a), Math.Abs(b)), Math.Abs(c));
         }
 
         /// <summary>
@@ -96,15 +110,12 @@ namespace Task1.Logic
         /// <returns>Tuple(Item1, Item2) where Item1 == null if all 
         /// arguments are equal to zero or gcd if not.
         /// Item2 is an elapsed time during which method works </returns>
-        private static Tuple<long?, TimeSpan> GcdPattern
+        private static Tuple<long, TimeSpan> GcdPatternTime
             (Func<long, long, long> gcdFunc, long a,
             long b)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            if (a == 0 && b == 0)
-                return new Tuple<long?, TimeSpan>(null, sw.Elapsed);
-            return new Tuple<long?, TimeSpan>
-                (gcdFunc(Math.Abs(a), Math.Abs(b)), sw.Elapsed);
+            return new Tuple<long, TimeSpan>(GcdPattern(gcdFunc, a, b), sw.Elapsed);
         }
 
         /// <summary>
@@ -118,14 +129,25 @@ namespace Task1.Logic
         /// <returns>Tuple(Item1, Item2) where Item1 == null if all 
         /// arguments are equal to zero or gcd if not.
         /// Item2 is an elapsed time during which method works </returns>
-        private static Tuple<long?, TimeSpan> GcdPattern
+        private static Tuple<long, TimeSpan> GcdPatternTime
             (Func<long, long, long> gcdFunc, long a, long b, long c)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            long ret = gcdFunc(gcdFunc(Math.Abs(a), Math.Abs(b)), Math.Abs(c));
-            if (ret == 0)
-                return new Tuple<long?, TimeSpan>(null, sw.Elapsed);
-            return new Tuple<long?, TimeSpan>(ret, sw.Elapsed);
+            return new Tuple<long, TimeSpan>(GcdPattern(gcdFunc, a, b, c), sw.Elapsed);
+        }
+
+        private static long GcdPattern
+            (Func<long, long, long> gcdFunc, params long[] numbers)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            if (numbers == null)
+                throw new ArgumentNullException($"{nameof(numbers)} is Nullable");
+            if (numbers.Length < 2)
+                throw new ArgumentException($"Number of parameters is less than 2");
+            long ret = numbers[0];
+            for (int i = 1; i < numbers.Length; i++)
+                ret = gcdFunc(ret, Math.Abs(numbers[i]));
+            return ret;
         }
 
         /// <summary>
@@ -142,20 +164,11 @@ namespace Task1.Logic
         /// <paramref name="numbers"/> is null</exception>
         /// <exception cref="ArgumentException">Throws when
         /// <paramref name="numbers"/> length is less than 2</exception>
-        private static Tuple<long?, TimeSpan> GcdPattern
+        private static Tuple<long, TimeSpan> GcdPatternTime
             (Func<long, long, long> gcdFunc, params long[] numbers)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            if (numbers == null)
-                throw new ArgumentNullException($"{nameof(numbers)} is Nullable");
-            if (numbers.Length < 2)
-                throw new ArgumentException($"Number of parameters is less than 2");
-            long ret = gcdFunc(Math.Abs(numbers[0]), Math.Abs(numbers[1]));
-            for (int i = 2; i < numbers.Length; i++)
-                ret = gcdFunc(ret, Math.Abs(numbers[i]));
-            if (ret == 0)
-                return new Tuple<long?, TimeSpan>(null, sw.Elapsed);
-            return new Tuple<long?, TimeSpan>(ret, sw.Elapsed);
+            return new Tuple<long, TimeSpan>(GcdPattern(gcdFunc, numbers), sw.Elapsed);
         }
 
         /// <summary>

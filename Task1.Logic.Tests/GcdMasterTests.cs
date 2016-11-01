@@ -41,7 +41,7 @@ namespace Task1.Logic.Tests
         public long? GcdEuclidean_Arg1Arg2_GcdReturns(long a, long b)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Tuple<long?, TimeSpan> actual = GcdMaster.GcdEuclidean(a, b);
+            Tuple<long?, TimeSpan> actual = GcdMaster.GcdEuclideanTime(a, b);
             sw.Stop();
             Assert.LessOrEqual
                 (actual.Item2, sw.Elapsed, "Time was measured bad");
@@ -90,7 +90,7 @@ namespace Task1.Logic.Tests
         public long? GcdEuclidean_Arg1Arg2Arg3_GcdReturns(long a, long b, long c)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Tuple<long?, TimeSpan> actual = GcdMaster.GcdEuclidean(a, b, c);
+            Tuple<long?, TimeSpan> actual = GcdMaster.GcdEuclideanTime(a, b, c);
             sw.Stop();
             Assert.LessOrEqual
                 (actual.Item2, sw.Elapsed, "Time was measured bad");
@@ -136,7 +136,7 @@ namespace Task1.Logic.Tests
         public long? GcdEuclidean_Args_GcdReturns(long[] numbers)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Tuple<long?, TimeSpan> actual = GcdMaster.GcdEuclidean(numbers);
+            Tuple<long?, TimeSpan> actual = GcdMaster.GcdEuclideanTime(numbers);
             sw.Stop();
             Assert.LessOrEqual
                 (actual.Item2, sw.Elapsed, "Time was measured bad");
@@ -156,7 +156,7 @@ namespace Task1.Logic.Tests
             (long[] numbers, Type expectedExceptionType)
         {
             Assert.Throws(expectedExceptionType, 
-                () => { GcdMaster.GcdEuclidean(numbers); });
+                () => { GcdMaster.GcdEuclideanTime(numbers); });
         }
 
         #region TestCases
@@ -193,7 +193,7 @@ namespace Task1.Logic.Tests
         public long? GcdStein_Arg1Arg2_ResultExpected(long a, long b)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Tuple<long?, TimeSpan> actual = GcdMaster.GcdStein(a, b);
+            Tuple<long?, TimeSpan> actual = GcdMaster.GcdSteinTime(a, b);
             sw.Stop();
             Assert.LessOrEqual
                 (actual.Item2, sw.Elapsed, "Time was measured bad");
@@ -242,7 +242,7 @@ namespace Task1.Logic.Tests
         public long? GcdStein_Arg1Arg2Arg3_GcdReturns(long a, long b, long c)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Tuple<long?, TimeSpan> actual = GcdMaster.GcdStein(a, b, c);
+            Tuple<long?, TimeSpan> actual = GcdMaster.GcdSteinTime(a, b, c);
             sw.Stop();
             Assert.LessOrEqual
                 (actual.Item2, sw.Elapsed, "Time was measured bad");
@@ -288,7 +288,7 @@ namespace Task1.Logic.Tests
         public long? GcdStein_Args_GcdReturns(long[] numbers)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            Tuple<long?, TimeSpan> actual = GcdMaster.GcdStein(numbers);
+            Tuple<long?, TimeSpan> actual = GcdMaster.GcdSteinTime(numbers);
             sw.Stop();
             Assert.LessOrEqual
                 (actual.Item2, sw.Elapsed, "Time was measured bad");
@@ -308,7 +308,7 @@ namespace Task1.Logic.Tests
             (long[] numbers, Type expectedExceptionType)
         {
             Assert.Throws(expectedExceptionType,
-                () => { GcdMaster.GcdStein(numbers); });
+                () => { GcdMaster.GcdSteinTime(numbers); });
         }
     }
 }
