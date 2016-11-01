@@ -9,21 +9,51 @@ namespace Task1.Logic
 {
     public static class GcdMaster
     {
+        /// <summary>
+        /// Computes GCD of two numbers. Uses Euclidean algorithm
+        /// </summary>
+        /// <returns>GCD of two numbers
+        /// </returns>
         public static long GcdEuclidean(this long a, long b) 
             => GcdPattern(ComputeGcdEuclidian, a, b);
 
+        /// <summary>
+        /// Computes GCD of three numbers. Uses Euclidean algorithm
+        /// </summary>
+        /// <returns>GCD of three numbers
+        /// </returns>
         public static long GcdEuclidean(this long a, long b, long c)
             => GcdPattern(ComputeGcdEuclidian, a, b, c);
 
+        /// <summary>
+        /// Computes GCD of variable arrange of numbers. Uses Euclidean algorithm
+        /// </summary>
+        /// <returns>GCD of variable arrange of numbers
+        /// </returns>
         public static long GcdEuclidean(params long[] numbers)
             => GcdPattern(ComputeGcdEuclidian, numbers);
 
+        /// <summary>
+        /// Computes GCD of two numbers. Uses Stein algorithm
+        /// </summary>
+        /// <returns>GCD of two numbers
+        /// </returns>
         public static long GcdStein(this long a, long b)
             => GcdPattern(ComputeGcdStein, a, b);
 
+        /// <summary>
+        /// Computes GCD of three numbers. Uses Stein algorithm
+        /// </summary>
+        /// <returns>GCD of three numbers
+        /// </returns>
         public static long GcdStein(this long a, long b, long c)
             => GcdPattern(ComputeGcdStein, a, b, c);
 
+        /// <summary>
+        /// Computes GCD of variable arrange of numbers. Uses Stein algorithm
+        /// </summary>
+        /// <returns>GCD of variable arrange of numbers
+        /// </returns>
         public static long GcdStein(params long[] numbers)
             => GcdPattern(ComputeGcdStein, numbers);
 
@@ -93,6 +123,14 @@ namespace Task1.Logic
         public static Tuple<long, long> GcdSteinTime(params long[] numbers)
             => GcdPatternTime(ComputeGcdStein, numbers);
 
+        /// <summary>
+        /// Implements a strategy of computing GCD of 2 arguments.
+        /// </summary>
+        /// <param name="gcdFunc">Function that computes GCD of 2 arguments
+        /// </param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns> Gcd of two numbers </returns>
         private static long GcdPattern
         (Func<long, long, long> gcdFunc, long a,
             long b)
@@ -100,12 +138,33 @@ namespace Task1.Logic
             return gcdFunc(Math.Abs(a), Math.Abs(b));
         }
 
+        /// <summary>
+        /// Implements a strategy of computing GCD of 3 arguments.
+        /// </summary>
+        /// <param name="gcdFunc">Function that computes GCD of 2 arguments
+        /// </param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns>Gcd of three numbers</returns>
         private static long GcdPattern(Func<long, long, long> gcdFunc, long a,
             long b, long c)
         {
             return gcdFunc(gcdFunc(Math.Abs(a), Math.Abs(b)), Math.Abs(c));
         }
 
+        /// <summary>
+        /// Implements a strategy of computing GCD of 
+        /// variable number of arguments.
+        /// </summary>
+        /// <param name="gcdFunc">Function that computes GCD of 2 arguments
+        /// </param>
+        /// <param name="numbers"></param>
+        /// <returns>Gcd of all numbers </returns>
+        /// <exception cref="ArgumentNullException">Throws when 
+        /// <paramref name="numbers"/> is null</exception>
+        /// <exception cref="ArgumentException">Throws when
+        /// <paramref name="numbers"/> length is less than 2</exception>
         private static long GcdPattern
             (Func<long, long, long> gcdFunc, params long[] numbers)
         {
@@ -113,7 +172,7 @@ namespace Task1.Logic
             if (numbers == null)
                 throw new ArgumentNullException($"{nameof(numbers)} is Nullable");
             if (numbers.Length < 2)
-                throw new ArgumentException($"Number of parameters is less than 2");
+                throw new ArgumentException("Number of parameters is less than 2");
             long ret = Math.Abs(numbers[0]);
             for (int i = 1; i < numbers.Length; i++)
                 ret = gcdFunc(ret, Math.Abs(numbers[i]));
