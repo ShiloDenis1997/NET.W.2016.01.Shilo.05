@@ -38,7 +38,7 @@ namespace Task1.Logic.Tests
             Description = "First > 0, second < 0")]
 #endregion
         [Test]
-        public long GcdEuclidean_Arg1Arg2_GcdReturns(long a, long b)
+        public long GcdEuclideanTime_Arg1Arg2_GcdReturns(long a, long b)
         {
             Stopwatch sw = Stopwatch.StartNew();
             Tuple<long, long> actual = GcdMaster.GcdEuclideanTime(a, b);
@@ -87,7 +87,7 @@ namespace Task1.Logic.Tests
             Description = "First > 0, second < 0, third < 0")]
 #endregion
         [Test]
-        public long GcdEuclidean_Arg1Arg2Arg3_GcdReturns(long a, long b, long c)
+        public long GcdEuclideanTime_Arg1Arg2Arg3_GcdReturns(long a, long b, long c)
         {
             Stopwatch sw = Stopwatch.StartNew();
             Tuple<long, long> actual = GcdMaster.GcdEuclideanTime(a, b, c);
@@ -133,7 +133,7 @@ namespace Task1.Logic.Tests
             Description = "Array with two arguments")]
 #endregion
         [Test]
-        public long GcdEuclidean_Args_GcdReturns(long[] numbers)
+        public long GcdEuclideanTime_Args_GcdReturns(long[] numbers)
         {
             Stopwatch sw = Stopwatch.StartNew();
             Tuple<long, long> actual = GcdMaster.GcdEuclideanTime(numbers);
@@ -152,7 +152,7 @@ namespace Task1.Logic.Tests
             Description = "array with one element test")] 
         #endregion
         [Test]
-        public void GcdEuclidean_Args_ExceptionExpected
+        public void GcdEuclideanTime_Args_ExceptionExpected
             (long[] numbers, Type expectedExceptionType)
         {
             Assert.Throws(expectedExceptionType, 
@@ -190,7 +190,7 @@ namespace Task1.Logic.Tests
             Description = "First > 0, second < 0")] 
         #endregion
         [Test]
-        public long GcdStein_Arg1Arg2_ResultExpected(long a, long b)
+        public long GcdSteinTime_Arg1Arg2_ResultExpected(long a, long b)
         {
             Stopwatch sw = Stopwatch.StartNew();
             Tuple<long, long> actual = GcdMaster.GcdSteinTime(a, b);
@@ -239,7 +239,7 @@ namespace Task1.Logic.Tests
             Description = "First > 0, second < 0, third < 0")]
         #endregion
         [Test]
-        public long GcdStein_Arg1Arg2Arg3_GcdReturns(long a, long b, long c)
+        public long GcdSteinTime_Arg1Arg2Arg3_GcdReturns(long a, long b, long c)
         {
             Stopwatch sw = Stopwatch.StartNew();
             Tuple<long, long> actual = GcdMaster.GcdSteinTime(a, b, c);
@@ -285,7 +285,7 @@ namespace Task1.Logic.Tests
             Description = "Array with two arguments")]
         #endregion
         [Test]
-        public long GcdStein_Args_GcdReturns(long[] numbers)
+        public long GcdSteinTime_Args_GcdReturns(long[] numbers)
         {
             Stopwatch sw = Stopwatch.StartNew();
             Tuple<long, long> actual = GcdMaster.GcdSteinTime(numbers);
@@ -304,7 +304,7 @@ namespace Task1.Logic.Tests
             Description = "array with one element test")]
         #endregion
         [Test]
-        public void GcdStein_Args_ExceptionExpected
+        public void GcdSteinTime_Args_ExceptionExpected
             (long[] numbers, Type expectedExceptionType)
         {
             Assert.Throws(expectedExceptionType,
