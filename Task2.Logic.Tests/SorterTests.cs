@@ -17,6 +17,27 @@ namespace Task2.Logic.Tests
                     (new[]
                 {
                     new long[] {1},
+                    null,
+                    new long[] {1, 2},
+                    new long[] {1, 2, 3},
+                    null,
+                    null
+                },
+                new[]
+                {
+                    new long[] {1},
+                    new long[] {1, 2},
+                    new long[] {1, 2, 3},
+                    null,
+                    null,
+                    null
+                },
+                new RowSumComparatorAscending())
+                .SetDescription("Test with null rows ascending.");
+                yield return new TestCaseData
+                    (new[]
+                {
+                    new long[] {1},
                     new long[] {1, 2},
                     new long[] {1, 2, 3}
                 },
@@ -76,6 +97,29 @@ namespace Task2.Logic.Tests
                 yield return new TestCaseData
                     (new[]
                 {
+                    new long[] {1},
+                    null,
+                    null,
+                    null,
+                    new long[] {1, 2},
+                    null,
+                    new long[] {1, 2, 3}
+                },
+                new[]
+                {
+                    new long[] {1, 2, 3},
+                    new long[] {1, 2},
+                    new long[] {1},
+                    null,
+                    null,
+                    null,
+                    null,
+                },
+                new RowSumComparatorDescending())
+                .SetDescription("Test with null rows descending. Reverse order of rows");
+                yield return new TestCaseData
+                    (new[]
+                {
                     new long[] {1, 2, 3},
                     new long[] {1, 2},
                     new long[] {1}
@@ -118,15 +162,6 @@ namespace Task2.Logic.Tests
                     .SetDescription("Matrix is null");
                 yield return new TestCaseData
                     (new[]
-                    {
-                        new long[] {1},
-                        null,
-                        new long[] {1, 2, 3}
-                    }, typeof(ArgumentNullException),
-                        new RowSumComparatorAscending())
-                    .SetDescription("One of the rows is null");
-                yield return new TestCaseData
-                    (new[]
                 {
                     new [] {long.MaxValue, long.MaxValue},
                     new long[] {1, 2, 3},
@@ -149,13 +184,15 @@ namespace Task2.Logic.Tests
 
         [Test, TestCaseSource(nameof(SortByRowSumPositiveTestData))]
         public void SortByRowSum_JaggedArray_SortedJuggedArrayExpected(long[][] matrix,
-            long[][] expectedMatrix, IRowsComparator comparer)
+            long[][] expectedMatrix, IComparer<long[]> comparer)
         {
             long[][] actual = Sorter.BubbleSort(matrix, comparer);
             Assert.AreEqual(expectedMatrix.Length, actual.Length,
                 "Expected and actual matrixes have a different number of rows");
             for (int i = 0; i < actual.Length; i++)
             {
+                if (expectedMatrix[i] == null && actual[i] == null)
+                    continue;
                 Assert.AreEqual(expectedMatrix[i].Length, actual[i].Length,
                     "Length of actual matrix is differ from expected");
                 for (int j = 0; j < actual[i].Length; j++)
@@ -166,7 +203,7 @@ namespace Task2.Logic.Tests
 
         [Test, TestCaseSource(nameof(SortByRowSumNegativeTestData))]
         public void SortByRowSum_JaggedArray_ExceptionExpected(long[][] matrix,
-            Type expectedException, IRowsComparator comparator)
+            Type expectedException, IComparer<long[]> comparator)
         {
             Assert.Throws(expectedException, () => { Sorter.BubbleSort(matrix, comparator); });
         }
@@ -191,6 +228,25 @@ namespace Task2.Logic.Tests
                 },
                 new RowMaxComparatorAscending())
                 .SetDescription("Test ascending. Mix order of rows");
+                yield return new TestCaseData
+                    (new[]
+                {
+                    new long[] {15},
+                    null,
+                    new long[] {10, 10},
+                    null,
+                    new long[] {1, 12, 13}
+                },
+                new[]
+                {
+                    new long[] {10, 10},
+                    new long[] {1, 12, 13},
+                    new long[] {15},
+                    null,
+                    null,
+                },
+                new RowMaxComparatorAscending())
+                .SetDescription("Test with null rows ascending.");
                 yield return new TestCaseData
                     (new[]
                 {
@@ -239,6 +295,27 @@ namespace Task2.Logic.Tests
                 yield return new TestCaseData
                     (new[]
                 {
+                    new long[] {1},
+                    null,
+                    new long[] {20, 20},
+                    null,
+                    null,
+                    new long[] {1, 2, 30}
+                },
+                new[]
+                {
+                    new long[] {1, 2, 30},
+                    new long[] {20, 20},
+                    new long[] {1},
+                    null,
+                    null,
+                    null,
+                },
+                new RowMaxComparatorDescending())
+                .SetDescription("Test with null rows descending.");
+                yield return new TestCaseData
+                    (new[]
+                {
                     new long[] {1, 2, 30},
                     new long[] {20, 20},
                     new long[] {1}
@@ -279,28 +356,21 @@ namespace Task2.Logic.Tests
                         (null, typeof(ArgumentNullException),
                         new RowMaxComparatorAscending())
                     .SetDescription("Matrix is null");
-                yield return new TestCaseData
-                    (new[]
-                    {
-                        new long[] {1},
-                        null,
-                        new long[] {1, 2, 3}
-                    }, typeof(ArgumentNullException),
-                        new RowMaxComparatorAscending())
-                    .SetDescription("One of the rows is null");
             }
         }
         #endregion
 
         [Test, TestCaseSource(nameof(SortByRowMaxPositiveTestData))]
         public void SortByRowMax_JaggedArray_SortedJuggedArrayExpected(long[][] matrix,
-            long[][] expectedMatrix, IRowsComparator comparer)
+            long[][] expectedMatrix, IComparer<long[]> comparer)
         {
             long[][] actual = Sorter.BubbleSort(matrix, comparer);
             Assert.AreEqual(expectedMatrix.Length, actual.Length,
                 "Expected and actual matrixes have a different number of rows");
             for (int i = 0; i < actual.Length; i++)
             {
+                if (expectedMatrix[i] == null && actual[i] == null)
+                    continue;
                 Assert.AreEqual(expectedMatrix[i].Length, actual[i].Length,
                     "Length of actual matrix is differ from expected");
                 for (int j = 0; j < actual[i].Length; j++)
@@ -311,7 +381,7 @@ namespace Task2.Logic.Tests
 
         [Test, TestCaseSource(nameof(SortByRowMaxNegativeTestData))]
         public void SortByRowMax_JaggedArray_ExceptionExpected(long[][] matrix,
-            Type expectedException, IRowsComparator comparator)
+            Type expectedException, IComparer<long[]> comparator)
         {
             Assert.Throws(expectedException, 
                 () => { Sorter.BubbleSort(matrix, comparator); });
@@ -322,6 +392,29 @@ namespace Task2.Logic.Tests
         {
             get
             {
+                yield return new TestCaseData
+                    (new[]
+                {
+                    new long[] {15},
+                    null,
+                    null,
+                    new long[] {1, 12, 13},
+                    new long[] {10, 10},
+                    null,
+                    null,
+                },
+                new[]
+                {
+                    new long[] {1, 12, 13},
+                    new long[] {10, 10},
+                    new long[] {15},
+                    null,
+                    null,
+                    null,
+                    null
+                },
+                new RowMinComparatorAscending())
+                .SetDescription("Test with null rows ascending.");
                 yield return new TestCaseData
                     (new[]
                 {
@@ -400,6 +493,27 @@ namespace Task2.Logic.Tests
                 yield return new TestCaseData
                     (new[]
                 {
+                    new long[] {20, 20},
+                    null,
+                    null,
+                    new long[] {3, 2, 30},
+                    null,
+                    new long[] {1}
+                },
+                new[]
+                {
+                    new long[] {20, 20},
+                    new long[] {3, 2, 30},
+                    new long[] {1},
+                    null,
+                    null,
+                    null
+                },
+                new RowMinComparatorDescending())
+                .SetDescription("Test with null rows descending.");
+                yield return new TestCaseData
+                    (new[]
+                {
                     new long[] {3, 2, 30},
                     new long[] {20, 20},
                     new long[] {1}
@@ -425,28 +539,21 @@ namespace Task2.Logic.Tests
                         (null, typeof(ArgumentNullException),
                         new RowMinComparatorAscending())
                     .SetDescription("Matrix is null");
-                yield return new TestCaseData
-                    (new[]
-                    {
-                        new long[] {1},
-                        null,
-                        new long[] {1, 2, 3}
-                    }, typeof(ArgumentNullException),
-                        new RowMinComparatorAscending())
-                    .SetDescription("One of the rows is null");
             }
         }
         #endregion
 
         [Test, TestCaseSource(nameof(SortByRowMinPositiveTestData))]
         public void SortByRowMin_JaggedArray_SortedJuggedArrayExpected(long[][] matrix,
-            long[][] expectedMatrix, IRowsComparator comparer)
+            long[][] expectedMatrix, IComparer<long[]> comparer)
         {
             long[][] actual = Sorter.BubbleSort(matrix, comparer);
             Assert.AreEqual(expectedMatrix.Length, actual.Length,
                 "Expected and actual matrixes have a different number of rows");
             for (int i = 0; i < actual.Length; i++)
             {
+                if (expectedMatrix[i] == null && actual[i] == null)
+                    continue;
                 Assert.AreEqual(expectedMatrix[i].Length, actual[i].Length,
                     "Length of actual matrix is differ from expected");
                 for (int j = 0; j < actual[i].Length; j++)
@@ -457,7 +564,7 @@ namespace Task2.Logic.Tests
 
         [Test, TestCaseSource(nameof(SortByRowMinNegativeTestData))]
         public void SortByRowMin_JaggedArray_ExceptionExpected(long[][] matrix,
-            Type expectedException, IRowsComparator comparator)
+            Type expectedException, IComparer<long[]> comparator)
         {
             Assert.Throws(expectedException, 
                 () => {Sorter.BubbleSort(matrix, comparator); });

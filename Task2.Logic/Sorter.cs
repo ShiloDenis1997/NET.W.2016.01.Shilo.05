@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Task2.Logic
 {
@@ -10,14 +11,14 @@ namespace Task2.Logic
         /// </summary>
         /// <param name="matrix">Matrix to sort</param>
         /// <param name="rowsComparator">Implementation 
-        /// of <see cref="IRowsComparator"/> to compare rows 
+        /// of <see cref="IComparer{T}"/> to compare rows 
         /// of <paramref name="matrix"/></param>
         /// <returns>Reference to the sorted matrix which is the same to 
         /// <paramref name="matrix"/></returns>
         /// <exception cref="ArgumentNullException">Throws if <paramref name="matrix"/>
         /// or <paramref name="rowsComparator"/> is null</exception>
         public static long[][] BubbleSort(long[][] matrix, 
-            IRowsComparator rowsComparator)
+            IComparer<long[]> rowsComparator)
         {
             if (matrix == null)
                 throw new ArgumentNullException

@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task2.Logic
+namespace Task2.Logic.Tests
 {
     /// <summary>
     /// Compares two sz-arrays by row's sums in ascending order
     /// </summary>
-    public class RowSumComparatorAscending : IRowsComparator
+    public class RowSumComparatorAscending : IComparer<long[]>
     {
         /// <summary>
-        /// Compares two sz-arrays by sum of elements
+        /// Compares two sz-arrays by sum of elements. Null array is 
+        /// always the greatest
         /// </summary>
         /// <param name="row1">First array</param>
         /// <param name="row2">Second array</param>
@@ -23,16 +24,12 @@ namespace Task2.Logic
         /// sum of elements in <paramref name="row2"/></returns>
         public int Compare(long[] row1, long[] row2)
         {
+            if (ReferenceEquals(row1, row2))
+                return 0;
             if (row1 == null)
-                throw new ArgumentNullException
-                    ($"{nameof(row1)} parameter is null");
-            if (row1.Length == 0)
-                throw new ArgumentException($"{nameof(row1)} has no elements");
+                return 1;
             if (row2 == null)
-                throw new ArgumentNullException
-                    ($"{nameof(row2)} parameter is null");
-            if (row2.Length == 0)
-                throw new ArgumentException($"{nameof(row2)} has no elements");
+                return -1;
             long s1 = 0;
             foreach (long t in row1)
                 s1 = checked(s1 + t);
@@ -46,10 +43,11 @@ namespace Task2.Logic
     /// <summary>
     /// Compares two sz-arrays by row's sums in ascending order
     /// </summary>
-    public class RowSumComparatorDescending : IRowsComparator
+    public class RowSumComparatorDescending : IComparer<long[]>
     {
         /// <summary>
-        /// Compares two sz-arrays by sum of elements
+        /// Compares two sz-arrays by sum of elements. Null array is 
+        /// always the greatest
         /// </summary>
         /// <param name="row1">First array</param>
         /// <param name="row2">Second array</param>
@@ -60,17 +58,13 @@ namespace Task2.Logic
         /// sum of elements in <paramref name="row1"/></returns>
         public int Compare(long[] row1, long[] row2)
         {
+            if (ReferenceEquals(row1, row2))
+                return 0;
             if (row1 == null)
-                throw new ArgumentNullException
-                    ($"{nameof(row1)} parameter is null");
-            if (row1.Length == 0)
-                throw new ArgumentException($"{nameof(row1)} has no elements");
+                return 1;
             if (row2 == null)
-                throw new ArgumentNullException
-                    ($"{nameof(row2)} parameter is null");
-            if (row2.Length == 0)
-                throw new ArgumentException($"{nameof(row2)} has no elements");
-            
+                return -1;
+
             long s1 = 0;
             foreach (long t in row1)
                 s1 = checked(s1 + t);
@@ -84,10 +78,11 @@ namespace Task2.Logic
     /// <summary>
     /// Compares two sz-arrays by row's maximums in ascending order
     /// </summary>
-    public class RowMaxComparatorAscending : IRowsComparator
+    public class RowMaxComparatorAscending : IComparer<long[]>
     {
         /// <summary>
-        /// Compares two sz-arrays by maximum element
+        /// Compares two sz-arrays by maximum element. Null array is 
+        /// always the greatest
         /// </summary>
         /// <param name="row1">First array</param>
         /// <param name="row2">Second array</param>
@@ -98,16 +93,13 @@ namespace Task2.Logic
         /// maximum element in <paramref name="row2"/></returns>
         public int Compare(long[] row1, long[] row2)
         {
+            if (ReferenceEquals(row1, row2))
+                return 0;
             if (row1 == null)
-                throw new ArgumentNullException
-                    ($"{nameof(row1)} parameter is null");
-            if (row1.Length == 0)
-                throw new ArgumentException($"{nameof(row1)} has no elements");
+                return 1;
             if (row2 == null)
-                throw new ArgumentNullException
-                    ($"{nameof(row2)} parameter is null");
-            if (row2.Length == 0)
-                throw new ArgumentException($"{nameof(row2)} has no elements");
+                return -1;
+
             long max1 = row1[0];
             for (int i = 1; i < row1.Length; i++)
                 max1 = Math.Max(max1, row1[i]);
@@ -121,10 +113,11 @@ namespace Task2.Logic
     /// <summary>
     /// Compares two sz-arrays by row's maximums in descending order
     /// </summary>
-    public class RowMaxComparatorDescending : IRowsComparator
+    public class RowMaxComparatorDescending : IComparer<long[]>
     {
         /// <summary>
-        /// Compares two sz-arrays by maximum element
+        /// Compares two sz-arrays by maximum element. Null array is 
+        /// always the greatest
         /// </summary>
         /// <param name="row1">First array</param>
         /// <param name="row2">Second array</param>
@@ -135,16 +128,13 @@ namespace Task2.Logic
         /// maximum element in <paramref name="row1"/></returns>
         public int Compare(long[] row1, long[] row2)
         {
+            if (ReferenceEquals(row1, row2))
+                return 0;
             if (row1 == null)
-                throw new ArgumentNullException
-                    ($"{nameof(row1)} parameter is null");
-            if (row1.Length == 0)
-                throw new ArgumentException($"{nameof(row1)} has no elements");
+                return 1;
             if (row2 == null)
-                throw new ArgumentNullException
-                    ($"{nameof(row2)} parameter is null");
-            if (row2.Length == 0)
-                throw new ArgumentException($"{nameof(row2)} has no elements");
+                return -1;
+
             long max1 = row1[0];
             for (int i = 1; i < row1.Length; i++)
                 max1 = Math.Max(max1, row1[i]);
@@ -158,10 +148,11 @@ namespace Task2.Logic
     /// <summary>
     /// Compares two sz-arrays by row's minimums in ascending order
     /// </summary>
-    public class RowMinComparatorAscending : IRowsComparator
+    public class RowMinComparatorAscending : IComparer<long[]>
     {
         /// <summary>
-        /// Compares two sz-arrays by maximum element
+        /// Compares two sz-arrays by maximum element. Null array is 
+        /// always the greatest
         /// </summary>
         /// <param name="row1">First array</param>
         /// <param name="row2">Second array</param>
@@ -172,16 +163,13 @@ namespace Task2.Logic
         /// minimum element in <paramref name="row2"/></returns>
         public int Compare(long[] row1, long[] row2)
         {
+            if (ReferenceEquals(row1, row2))
+                return 0;
             if (row1 == null)
-                throw new ArgumentNullException
-                    ($"{nameof(row1)} parameter is null");
-            if (row1.Length == 0)
-                throw new ArgumentException($"{nameof(row1)} has no elements");
+                return 1;
             if (row2 == null)
-                throw new ArgumentNullException
-                    ($"{nameof(row2)} parameter is null");
-            if (row2.Length == 0)
-                throw new ArgumentException($"{nameof(row2)} has no elements");
+                return -1;
+
             long min1 = row1[0];
             for (int i = 1; i < row1.Length; i++)
                 min1 = Math.Min(min1, row1[i]);
@@ -195,10 +183,11 @@ namespace Task2.Logic
     /// <summary>
     /// Compares two sz-arrays by row's minimums in descending order
     /// </summary>
-    public class RowMinComparatorDescending : IRowsComparator
+    public class RowMinComparatorDescending : IComparer<long[]>
     {
         /// <summary>
-        /// Compares two sz-arrays by maximum element
+        /// Compares two sz-arrays by maximum element. Null array is 
+        /// always the greatest
         /// </summary>
         /// <param name="row1">First array</param>
         /// <param name="row2">Second array</param>
@@ -209,16 +198,13 @@ namespace Task2.Logic
         /// minimum element in <paramref name="row1"/></returns>
         public int Compare(long[] row1, long[] row2)
         {
+            if (ReferenceEquals(row1, row2))
+                return 0;
             if (row1 == null)
-                throw new ArgumentNullException
-                    ($"{nameof(row1)} parameter is null");
-            if (row1.Length == 0)
-                throw new ArgumentException($"{nameof(row1)} has no elements");
+                return 1;
             if (row2 == null)
-                throw new ArgumentNullException
-                    ($"{nameof(row2)} parameter is null");
-            if (row2.Length == 0)
-                throw new ArgumentException($"{nameof(row2)} has no elements");
+                return -1;
+
             long min1 = row1[0];
             for (int i = 1; i < row1.Length; i++)
                 min1 = Math.Min(min1, row1[i]);
