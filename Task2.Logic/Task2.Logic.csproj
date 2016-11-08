@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Sorter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SorterTwin.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
