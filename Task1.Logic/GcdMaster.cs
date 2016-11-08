@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Task1.Logic
 {
@@ -175,7 +171,6 @@ namespace Task1.Logic
         private static long GcdPattern
             (Func<long, long, long> gcdFunc, params long[] numbers)
         {
-            Stopwatch sw = Stopwatch.StartNew();
             if (numbers == null)
                 throw new ArgumentNullException($"{nameof(numbers)} is Nullable");
             if (numbers.Length < 2)
@@ -255,7 +250,7 @@ namespace Task1.Logic
         /// are equal to zero, GCD if not</returns>
         private static long ComputeGcdStein(long a, long b)
         {
-            int shift = 0;
+            int shift;
             if (a == 0)
                 return b;
             if (b == 0)
