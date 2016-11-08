@@ -13,11 +13,9 @@ namespace Task2.Logic
         /// <param name="rowsComparator">Implementation 
         /// of <see cref="IComparer{T}"/> to compare rows 
         /// of <paramref name="matrix"/></param>
-        /// <returns>Reference to the sorted matrix which is the same to 
-        /// <paramref name="matrix"/></returns>
         /// <exception cref="ArgumentNullException">Throws if <paramref name="matrix"/>
         /// or <paramref name="rowsComparator"/> is null</exception>
-        public static long[][] BubbleSort(long[][] matrix, 
+        public static void BubbleSort(long[][] matrix, 
             IComparer<long[]> rowsComparator)
         {
             if (matrix == null)
@@ -34,7 +32,6 @@ namespace Task2.Logic
                         Swap(ref matrix[j - 1], ref matrix[j]);
                     }
                 }
-            return matrix;
         }
 
         private static void Swap<T>(ref T a, ref T b)
