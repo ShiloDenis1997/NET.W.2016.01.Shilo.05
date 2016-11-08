@@ -543,6 +543,10 @@ namespace Task2.Logic.Tests
                         (null, typeof(ArgumentNullException),
                         new RowMinComparatorAscending())
                     .SetDescription("Matrix is null");
+                yield return new TestCaseData
+                        (new long[][] {}, typeof(ArgumentNullException),
+                        null)
+                    .SetDescription("Comparer is null");
             }
         }
         #endregion
@@ -574,6 +578,44 @@ namespace Task2.Logic.Tests
         {
             Assert.Throws(expectedException, 
                 () => {Sorter.BubbleSort(matrix, comparator); });
+        }
+
+        [Test, TestCaseSource(nameof(SortByRowMinNegativeTestData))]
+        public void SortWithDelegateByRowMin_JaggedArray_ExceptionExpected(long[][] matrix,
+            Type expectedException, IComparer<long[]> comparator)
+        {
+            Assert.Throws(expectedException,
+                () => { Sorter.BubbleSort(matrix, comparator == null 
+                    ? (Func<long[], long[], int>)null 
+                    : comparator.Compare); });
+        }
+
+        [Test]
+        public void SortWithDelegateByRowMin_JaggedArray_ArgumentNullExceptionExpected()
+        {
+            Assert.Throws(typeof(ArgumentNullException),
+                () => { Sorter.BubbleSort(new long[][] {}, (Func<long[], long[], int>)null); });
+        }
+
+        [Test, TestCaseSource(nameof(SortByRowMaxPositiveTestData))]
+        public void SortWithDelegateByRowMax_JaggedArray_SortedJuggedArrayExpected(long[][] matrix,
+            long[][] expectedMatrix, IComparer<long[]> comparer)
+        {
+            Sorter.BubbleSort(matrix, comparer.Compare);
+            Assert.AreEqual(expectedMatrix.Length, matrix.Length,
+                "Expected and actual matrixes have a different number of rows");
+            for (int i = 0; i < matrix.Length; i++)
+            {
+                if (expectedMatrix[i] == null && matrix[i] == null)
+                    continue;
+                if (expectedMatrix[i] == null)
+                    Assert.Fail($"Expected null, but found {matrix[i]}");
+                Assert.AreEqual(expectedMatrix[i].Length, matrix[i].Length,
+                    "Length of actual matrix is differ from expected");
+                for (int j = 0; j < matrix[i].Length; j++)
+                    Assert.AreEqual(expectedMatrix[i][j], matrix[i][j],
+                        "Element in actual matrix is differ from expected");
+            }
         }
     }
 }
