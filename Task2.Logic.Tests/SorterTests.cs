@@ -186,17 +186,19 @@ namespace Task2.Logic.Tests
         public void SortByRowSum_JaggedArray_SortedJuggedArrayExpected(long[][] matrix,
             long[][] expectedMatrix, IComparer<long[]> comparer)
         {
-            long[][] actual = Sorter.BubbleSort(matrix, comparer);
-            Assert.AreEqual(expectedMatrix.Length, actual.Length,
+            Sorter.BubbleSort(matrix, comparer);
+            Assert.AreEqual(expectedMatrix.Length, matrix.Length,
                 "Expected and actual matrixes have a different number of rows");
-            for (int i = 0; i < actual.Length; i++)
+            for (int i = 0; i < matrix.Length; i++)
             {
-                if (expectedMatrix[i] == null && actual[i] == null)
+                if (expectedMatrix[i] == null && matrix[i] == null)
                     continue;
-                Assert.AreEqual(expectedMatrix[i].Length, actual[i].Length,
+                if (expectedMatrix[i] == null)
+                    Assert.Fail($"Expected null, but found {matrix[i]}");
+                Assert.AreEqual(expectedMatrix[i].Length, matrix[i].Length,
                     "Length of actual matrix is differ from expected");
-                for (int j = 0; j < actual[i].Length; j++)
-                    Assert.AreEqual(expectedMatrix[i][j], actual[i][j],
+                for (int j = 0; j < matrix[i].Length; j++)
+                    Assert.AreEqual(expectedMatrix[i][j], matrix[i][j],
                         "Element in actual matrix is differ from expected");
             }
         }
@@ -364,17 +366,19 @@ namespace Task2.Logic.Tests
         public void SortByRowMax_JaggedArray_SortedJuggedArrayExpected(long[][] matrix,
             long[][] expectedMatrix, IComparer<long[]> comparer)
         {
-            long[][] actual = Sorter.BubbleSort(matrix, comparer);
-            Assert.AreEqual(expectedMatrix.Length, actual.Length,
+            Sorter.BubbleSort(matrix, comparer);
+            Assert.AreEqual(expectedMatrix.Length, matrix.Length,
                 "Expected and actual matrixes have a different number of rows");
-            for (int i = 0; i < actual.Length; i++)
+            for (int i = 0; i < matrix.Length; i++)
             {
-                if (expectedMatrix[i] == null && actual[i] == null)
+                if (expectedMatrix[i] == null && matrix[i] == null)
                     continue;
-                Assert.AreEqual(expectedMatrix[i].Length, actual[i].Length,
+                if (expectedMatrix[i] == null)
+                    Assert.Fail($"Expected null, but found {matrix[i]}");
+                Assert.AreEqual(expectedMatrix[i].Length, matrix[i].Length,
                     "Length of actual matrix is differ from expected");
-                for (int j = 0; j < actual[i].Length; j++)
-                    Assert.AreEqual(expectedMatrix[i][j], actual[i][j],
+                for (int j = 0; j < matrix[i].Length; j++)
+                    Assert.AreEqual(expectedMatrix[i][j], matrix[i][j],
                         "Element in actual matrix is differ from expected");
             }
         }
@@ -547,17 +551,19 @@ namespace Task2.Logic.Tests
         public void SortByRowMin_JaggedArray_SortedJuggedArrayExpected(long[][] matrix,
             long[][] expectedMatrix, IComparer<long[]> comparer)
         {
-            long[][] actual = Sorter.BubbleSort(matrix, comparer);
-            Assert.AreEqual(expectedMatrix.Length, actual.Length,
+            Sorter.BubbleSort(matrix, comparer);
+            Assert.AreEqual(expectedMatrix.Length, matrix.Length,
                 "Expected and actual matrixes have a different number of rows");
-            for (int i = 0; i < actual.Length; i++)
+            for (int i = 0; i < matrix.Length; i++)
             {
-                if (expectedMatrix[i] == null && actual[i] == null)
+                if (expectedMatrix[i] == null && matrix[i] == null)
                     continue;
-                Assert.AreEqual(expectedMatrix[i].Length, actual[i].Length,
+                if (expectedMatrix[i] == null)
+                    Assert.Fail($"Expected null, but found {matrix[i]}");
+                Assert.AreEqual(expectedMatrix[i].Length, matrix[i].Length,
                     "Length of actual matrix is differ from expected");
-                for (int j = 0; j < actual[i].Length; j++)
-                    Assert.AreEqual(expectedMatrix[i][j], actual[i][j],
+                for (int j = 0; j < matrix[i].Length; j++)
+                    Assert.AreEqual(expectedMatrix[i][j], matrix[i][j],
                         "Element in actual matrix is differ from expected");
             }
         }
