@@ -32,14 +32,12 @@ namespace Task2.Logic
         /// <paramref name="comparer"/>. 
         /// </summary>
         /// <param name="matrix">Matrix to sort</param>
-        /// <param name="comparer"> delegate <see cref="Func{T, T, TResult}"/>
-        ///  to compare rows of <paramref name="matrix"/>. 
-        /// Needs to have the same logic as
-        /// <see cref="IComparer{T}"/> interface</param>
+        /// <param name="comparer"> delegate <see cref="Comparison{T}"/>
+        ///  to compare rows of <paramref name="matrix"/>. </param>
         /// <exception cref="ArgumentNullException">Throws if <paramref name="matrix"/>
         /// or <paramref name="comparer"/> is null</exception>
         public static void BubbleSort
-            (long[][] matrix, Func<long[], long[], int> comparer)
+            (long[][] matrix, Comparison<long[]> comparer)
         {
             if (matrix == null)
                 throw new ArgumentNullException

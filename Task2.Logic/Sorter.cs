@@ -40,30 +40,28 @@ namespace Task2.Logic
         /// <paramref name="comparer"/>. 
         /// </summary>
         /// <param name="matrix">Matrix to sort</param>
-        /// <param name="comparer"> delegate <see cref="Func{T, T, TResult}"/>
-        ///  to compare rows of <paramref name="matrix"/>. 
-        /// Needs to have the same logic as
-        /// <see cref="IComparer{T}"/> interface</param>
+        /// <param name="comparer"> delegate <see cref="Comparison{T}"/>
+        ///  to compare rows of <paramref name="matrix"/>.
         /// <exception cref="ArgumentNullException">Throws if <paramref name="matrix"/>
         /// or <paramref name="comparer"/> is null</exception>
         public static void BubbleSort
-            (long[][] matrix, Func<long[], long[], int> comparer)
+            (long[][] matrix, Comparison<long[]> comparer)
         {
             if (comparer == null)
                 throw new ArgumentNullException
                     ($"{nameof(comparer)} parameter is null");
-            BubbleSort(matrix, new DelegateToInterfaceHelper<long[]>(comparer));
+            BubbleSort(matrix, new ComparisonAdapter<long[]>(comparer));
         }
 
         /// <summary>
-        /// Wraps delegate with <see cref="IComparer{T}"/> interface
+        /// Wraps delegate with <see cref="Comparison{T}"/> interface
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        private class DelegateToInterfaceHelper <T>: IComparer<T>
+        private class ComparisonAdapter <T>: IComparer<T>
         {
-            private readonly Func<T, T, int> comparer;
+            private readonly Comparison<T> comparer;
 
-            public DelegateToInterfaceHelper(Func<T, T, int> comparer)
+            public ComparisonAdapter(Comparison<T> comparer)
             {
                 this.comparer = comparer;
             }

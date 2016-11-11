@@ -586,7 +586,7 @@ namespace Task2.Logic.Tests
         {
             Assert.Throws(expectedException,
                 () => { Sorter.BubbleSort(matrix, comparator == null 
-                    ? (Func<long[], long[], int>)null 
+                    ? (Comparison<long[]>)null 
                     : comparator.Compare); });
         }
 
@@ -594,7 +594,7 @@ namespace Task2.Logic.Tests
         public void SortWithDelegateByRowMin_JaggedArray_ArgumentNullExceptionExpected()
         {
             Assert.Throws(typeof(ArgumentNullException),
-                () => { Sorter.BubbleSort(new long[][] {}, (Func<long[], long[], int>)null); });
+                () => { Sorter.BubbleSort(new long[][] {}, (Comparison<long[]>)null); });
         }
 
         [Test, TestCaseSource(nameof(SortByRowMaxPositiveTestData))]
