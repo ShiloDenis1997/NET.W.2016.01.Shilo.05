@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Task1.Logic
 {
@@ -136,10 +137,8 @@ namespace Task1.Logic
         /// <returns> Gcd of two numbers </returns>
         private static long GcdPattern
         (Func<long, long, long> gcdFunc, long a,
-            long b)
-        {
-            return gcdFunc(Math.Abs(a), Math.Abs(b));
-        }
+            long b) 
+            => gcdFunc(Math.Abs(a), Math.Abs(b));
 
         /// <summary>
         /// Implements a strategy of computing GCD of 3 arguments.
@@ -151,10 +150,8 @@ namespace Task1.Logic
         /// <param name="c"></param>
         /// <returns>Gcd of three numbers</returns>
         private static long GcdPattern(Func<long, long, long> gcdFunc, long a,
-            long b, long c)
-        {
-            return gcdFunc(gcdFunc(Math.Abs(a), Math.Abs(b)), Math.Abs(c));
-        }
+            long b, long c) 
+            => gcdFunc(gcdFunc(Math.Abs(a), Math.Abs(b)), Math.Abs(c));
 
         /// <summary>
         /// Implements a strategy of computing GCD of 
@@ -175,9 +172,8 @@ namespace Task1.Logic
                 throw new ArgumentNullException($"{nameof(numbers)} is Nullable");
             if (numbers.Length < 2)
                 throw new ArgumentException("Number of parameters is less than 2");
-            long ret = Math.Abs(numbers[0]);
-            for (int i = 1; i < numbers.Length; i++)
-                ret = gcdFunc(ret, Math.Abs(numbers[i]));
+            long ret = numbers.Aggregate
+                ((res, arg) => gcdFunc(Math.Abs(res), Math.Abs(arg)));
             return ret;
         }
 
