@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Task2.Logic
@@ -45,32 +44,8 @@ namespace Task2.Logic
         /// <exception cref="ArgumentNullException">Throws if <paramref name="matrix"/>
         /// or <paramref name="comparer"/> is null</exception>
         public static void BubbleSort
-            (long[][] matrix, Comparison<long[]> comparer)
-        {
-            if (comparer == null)
-                throw new ArgumentNullException
-                    ($"{nameof(comparer)} parameter is null");
-            BubbleSort(matrix, new ComparisonAdapter<long[]>(comparer));
-        }
-
-        /// <summary>
-        /// Wraps delegate with <see cref="Comparison{T}"/> interface
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        private class ComparisonAdapter <T>: IComparer<T>
-        {
-            private readonly Comparison<T> comparer;
-
-            public ComparisonAdapter(Comparison<T> comparer)
-            {
-                this.comparer = comparer;
-            }
-
-            public int Compare(T x, T y)
-            {
-                return comparer(x, y);
-            }
-        }
+            (long[][] matrix, Comparison<long[]> comparer) 
+                => BubbleSort(matrix, Comparer<long[]>.Create(comparer));
 
         private static void Swap<T>(ref T a, ref T b)
         {
